@@ -15,9 +15,56 @@ import 'bridge_generated.io.dart'
 import 'package:meta/meta.dart';
 
 abstract class FueletContracts {
-  Future<String> helloFromRust({dynamic hint});
+  Future<TokenContract> newStaticMethodTokenContract(
+      {required String nodeUrl, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kHelloFromRustConstMeta;
+  FlutterRustBridgeTaskConstMeta get kNewStaticMethodTokenContractConstMeta;
+
+  Future<String> callContractMethodTokenContract(
+      {required TokenContract that, required String contractId, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kCallContractMethodTokenContractConstMeta;
+
+  DropFnType get dropOpaqueWalletUnlocked;
+  ShareFnType get shareOpaqueWalletUnlocked;
+  OpaqueTypeFinalizer get WalletUnlockedFinalizer;
+}
+
+@sealed
+class WalletUnlocked extends FrbOpaque {
+  final FueletContracts bridge;
+  WalletUnlocked.fromRaw(int ptr, int size, this.bridge)
+      : super.unsafe(ptr, size);
+  @override
+  DropFnType get dropFn => bridge.dropOpaqueWalletUnlocked;
+
+  @override
+  ShareFnType get shareFn => bridge.shareOpaqueWalletUnlocked;
+
+  @override
+  OpaqueTypeFinalizer get staticFinalizer => bridge.WalletUnlockedFinalizer;
+}
+
+class TokenContract {
+  final FueletContracts bridge;
+  final WalletUnlocked readWallet;
+
+  TokenContract({
+    required this.bridge,
+    required this.readWallet,
+  });
+
+  static Future<TokenContract> newTokenContract(
+          {required FueletContracts bridge,
+          required String nodeUrl,
+          dynamic hint}) =>
+      bridge.newStaticMethodTokenContract(nodeUrl: nodeUrl, hint: hint);
+
+  Future<String> callContract({required String contractId, dynamic hint}) =>
+      bridge.callContractMethodTokenContract(
+        that: this,
+        contractId: contractId,
+      );
 }
 
 class FueletContractsImpl implements FueletContracts {
@@ -29,21 +76,52 @@ class FueletContractsImpl implements FueletContracts {
   factory FueletContractsImpl.wasm(FutureOr<WasmModule> module) =>
       FueletContractsImpl(module as ExternalLibrary);
   FueletContractsImpl.raw(this._platform);
-  Future<String> helloFromRust({dynamic hint}) {
+  Future<TokenContract> newStaticMethodTokenContract(
+      {required String nodeUrl, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(nodeUrl);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_hello_from_rust(port_),
-      parseSuccessData: _wire2api_String,
-      constMeta: kHelloFromRustConstMeta,
-      argValues: [],
+      callFfi: (port_) =>
+          _platform.inner.wire_new__static_method__TokenContract(port_, arg0),
+      parseSuccessData: (d) => _wire2api_token_contract(d),
+      constMeta: kNewStaticMethodTokenContractConstMeta,
+      argValues: [nodeUrl],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kHelloFromRustConstMeta =>
+  FlutterRustBridgeTaskConstMeta get kNewStaticMethodTokenContractConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
-        debugName: "hello_from_rust",
-        argNames: [],
+        debugName: "new__static_method__TokenContract",
+        argNames: ["nodeUrl"],
       );
+
+  Future<String> callContractMethodTokenContract(
+      {required TokenContract that, required String contractId, dynamic hint}) {
+    var arg0 = _platform.api2wire_box_autoadd_token_contract(that);
+    var arg1 = _platform.api2wire_String(contractId);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner
+          .wire_call_contract__method__TokenContract(port_, arg0, arg1),
+      parseSuccessData: _wire2api_String,
+      constMeta: kCallContractMethodTokenContractConstMeta,
+      argValues: [that, contractId],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta
+      get kCallContractMethodTokenContractConstMeta =>
+          const FlutterRustBridgeTaskConstMeta(
+            debugName: "call_contract__method__TokenContract",
+            argNames: ["that", "contractId"],
+          );
+
+  DropFnType get dropOpaqueWalletUnlocked =>
+      _platform.inner.drop_opaque_WalletUnlocked;
+  ShareFnType get shareOpaqueWalletUnlocked =>
+      _platform.inner.share_opaque_WalletUnlocked;
+  OpaqueTypeFinalizer get WalletUnlockedFinalizer =>
+      _platform.WalletUnlockedFinalizer;
 
   void dispose() {
     _platform.dispose();
@@ -52,6 +130,20 @@ class FueletContractsImpl implements FueletContracts {
 
   String _wire2api_String(dynamic raw) {
     return raw as String;
+  }
+
+  WalletUnlocked _wire2api_WalletUnlocked(dynamic raw) {
+    return WalletUnlocked.fromRaw(raw[0], raw[1], this);
+  }
+
+  TokenContract _wire2api_token_contract(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return TokenContract(
+      bridge: this,
+      readWallet: _wire2api_WalletUnlocked(arr[0]),
+    );
   }
 
   int _wire2api_u8(dynamic raw) {
@@ -64,5 +156,10 @@ class FueletContractsImpl implements FueletContracts {
 }
 
 // Section: api2wire
+
+@protected
+int api2wire_u8(int raw) {
+  return raw;
+}
 
 // Section: finalizer

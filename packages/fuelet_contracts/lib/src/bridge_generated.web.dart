@@ -19,8 +19,36 @@ class FueletContractsPlatform extends FlutterRustBridgeBase<FueletContractsWire>
 
 // Section: api2wire
 
+  @protected
+  String api2wire_String(String raw) {
+    return raw;
+  }
+
+  @protected
+  Object api2wire_WalletUnlocked(WalletUnlocked raw) {
+    return raw.shareOrMove();
+  }
+
+  @protected
+  List<dynamic> api2wire_box_autoadd_token_contract(TokenContract raw) {
+    return api2wire_token_contract(raw);
+  }
+
+  @protected
+  List<dynamic> api2wire_token_contract(TokenContract raw) {
+    return [api2wire_WalletUnlocked(raw.readWallet)];
+  }
+
+  @protected
+  Uint8List api2wire_uint_8_list(Uint8List raw) {
+    return raw;
+  }
 // Section: finalizer
 
+  late final Finalizer<PlatformPointer> _WalletUnlockedFinalizer =
+      Finalizer<PlatformPointer>(inner.drop_opaque_WalletUnlocked);
+  Finalizer<PlatformPointer> get WalletUnlockedFinalizer =>
+      _WalletUnlockedFinalizer;
 }
 
 // Section: WASM wire module
@@ -33,7 +61,15 @@ external FueletContractsWasmModule get wasmModule;
 class FueletContractsWasmModule implements WasmModule {
   external Object /* Promise */ call([String? moduleName]);
   external FueletContractsWasmModule bind(dynamic thisArg, String moduleName);
-  external dynamic /* void */ wire_hello_from_rust(NativePortType port_);
+  external dynamic /* void */ wire_new__static_method__TokenContract(
+      NativePortType port_, String node_url);
+
+  external dynamic /* void */ wire_call_contract__method__TokenContract(
+      NativePortType port_, List<dynamic> that, String contract_id);
+
+  external dynamic /*  */ drop_opaque_WalletUnlocked(ptr);
+
+  external int /* *const c_void */ share_opaque_WalletUnlocked(ptr);
 }
 
 // Section: WASM wire connector
@@ -43,6 +79,18 @@ class FueletContractsWire
   FueletContractsWire(FutureOr<WasmModule> module)
       : super(WasmModule.cast<FueletContractsWasmModule>(module));
 
-  void wire_hello_from_rust(NativePortType port_) =>
-      wasmModule.wire_hello_from_rust(port_);
+  void wire_new__static_method__TokenContract(
+          NativePortType port_, String node_url) =>
+      wasmModule.wire_new__static_method__TokenContract(port_, node_url);
+
+  void wire_call_contract__method__TokenContract(
+          NativePortType port_, List<dynamic> that, String contract_id) =>
+      wasmModule.wire_call_contract__method__TokenContract(
+          port_, that, contract_id);
+
+  dynamic /*  */ drop_opaque_WalletUnlocked(ptr) =>
+      wasmModule.drop_opaque_WalletUnlocked(ptr);
+
+  int /* *const c_void */ share_opaque_WalletUnlocked(ptr) =>
+      wasmModule.share_opaque_WalletUnlocked(ptr);
 }

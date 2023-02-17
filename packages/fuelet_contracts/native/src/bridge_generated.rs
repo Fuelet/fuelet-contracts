@@ -21,14 +21,38 @@ use std::sync::Arc;
 
 // Section: wire functions
 
-fn wire_hello_from_rust_impl(port_: MessagePort) {
+fn wire_new__static_method__TokenContract_impl(
+    port_: MessagePort,
+    node_url: impl Wire2Api<String> + UnwindSafe,
+) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "hello_from_rust",
+            debug_name: "new__static_method__TokenContract",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
-        move || move |task_callback| Ok(hello_from_rust()),
+        move || {
+            let api_node_url = node_url.wire2api();
+            move |task_callback| Ok(TokenContract::new(api_node_url))
+        },
+    )
+}
+fn wire_call_contract__method__TokenContract_impl(
+    port_: MessagePort,
+    that: impl Wire2Api<TokenContract> + UnwindSafe,
+    contract_id: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "call_contract__method__TokenContract",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.wire2api();
+            let api_contract_id = contract_id.wire2api();
+            move |task_callback| Ok(TokenContract::call_contract(&api_that, api_contract_id))
+        },
     )
 }
 // Section: wrapper structs
@@ -53,7 +77,21 @@ where
         (!self.is_null()).then(|| self.wire2api())
     }
 }
+
+impl Wire2Api<u8> for u8 {
+    fn wire2api(self) -> u8 {
+        self
+    }
+}
+
 // Section: impl IntoDart
+
+impl support::IntoDart for TokenContract {
+    fn into_dart(self) -> support::DartAbi {
+        vec![self.read_wallet.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for TokenContract {}
 
 // Section: executor
 
