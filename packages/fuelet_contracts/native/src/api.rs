@@ -4,6 +4,8 @@ use flutter_rust_bridge::RustOpaque;
 pub use fuels::prelude::*;
 use fuels::signers::fuel_crypto::SecretKey;
 
+pub use crate::model::token_initialize_config::TokenInitializeConfigModel;
+
 const READ_WALLET_PRIVATE_KEY: &str = "e5e05a4ab2919dc01b97c90a48853fd4dfbd204e92e44327375702ab09bb184e";
 
 abigen!(Contract(
@@ -26,10 +28,10 @@ impl TokenContract {
     }
 
     #[tokio::main]
-    pub async fn call_contract(
+    pub async fn config(
         &self,
         contract_id: String,
-    ) -> String {
+    ) -> TokenInitializeConfigModel {
         let address: ContractId = ContractId::from_str(contract_id.as_str()).unwrap();
         let bech32_contract_id = Bech32ContractId::from(address);
         let contract_instance = TokenContractAbi::new(bech32_contract_id, (*self.read_wallet).clone());
@@ -39,6 +41,10 @@ impl TokenContract {
             .simulate()
             .await
             .unwrap();
-        response.value.name.into()
+        TokenInitializeConfigModel {
+            name: response.value.name.into(),
+            symbol: response.value.symbol.into(),
+            decimals: response.value.decimals.into(),
+        }
     }
 }

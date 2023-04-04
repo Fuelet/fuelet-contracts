@@ -26,7 +26,9 @@ void main() {
   test('test hello rust', () async {
     var tokenContract = await TokenContract.newTokenContract(
         bridge: rustSdk, nodeUrl: betaApiUrl);
-    var response = await tokenContract.callContract(contractId: uniswapAssetId);
-    expect(response, 'Hello from Rust');
+    var response = await tokenContract.config(contractId: compoundAssetId);
+    expect(response.name, 'Compound                        ');
+    expect(response.symbol, 'COMP    ');
+    expect(response.decimals, 9);
   });
 }

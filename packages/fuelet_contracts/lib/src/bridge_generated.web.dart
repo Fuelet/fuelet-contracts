@@ -64,7 +64,7 @@ class FueletContractsWasmModule implements WasmModule {
   external dynamic /* void */ wire_new__static_method__TokenContract(
       NativePortType port_, String node_url);
 
-  external dynamic /* void */ wire_call_contract__method__TokenContract(
+  external dynamic /* void */ wire_config__method__TokenContract(
       NativePortType port_, List<dynamic> that, String contract_id);
 
   external dynamic /*  */ drop_opaque_WalletUnlocked(ptr);
@@ -83,10 +83,9 @@ class FueletContractsWire
           NativePortType port_, String node_url) =>
       wasmModule.wire_new__static_method__TokenContract(port_, node_url);
 
-  void wire_call_contract__method__TokenContract(
+  void wire_config__method__TokenContract(
           NativePortType port_, List<dynamic> that, String contract_id) =>
-      wasmModule.wire_call_contract__method__TokenContract(
-          port_, that, contract_id);
+      wasmModule.wire_config__method__TokenContract(port_, that, contract_id);
 
   dynamic /*  */ drop_opaque_WalletUnlocked(ptr) =>
       wasmModule.drop_opaque_WalletUnlocked(ptr);

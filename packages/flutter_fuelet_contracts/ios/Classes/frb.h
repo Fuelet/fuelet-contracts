@@ -36,9 +36,9 @@ intptr_t init_frb_dart_api_dl(void *obj);
 
 void wire_new__static_method__TokenContract(int64_t port_, struct wire_uint_8_list *node_url);
 
-void wire_call_contract__method__TokenContract(int64_t port_,
-                                               struct wire_TokenContract *that,
-                                               struct wire_uint_8_list *contract_id);
+void wire_config__method__TokenContract(int64_t port_,
+                                        struct wire_TokenContract *that,
+                                        struct wire_uint_8_list *contract_id);
 
 struct wire_WalletUnlocked new_WalletUnlocked(void);
 
@@ -55,7 +55,7 @@ void free_WireSyncReturn(WireSyncReturn ptr);
 static int64_t dummy_method_to_enforce_bundling(void) {
     int64_t dummy_var = 0;
     dummy_var ^= ((int64_t) (void*) wire_new__static_method__TokenContract);
-    dummy_var ^= ((int64_t) (void*) wire_call_contract__method__TokenContract);
+    dummy_var ^= ((int64_t) (void*) wire_config__method__TokenContract);
     dummy_var ^= ((int64_t) (void*) new_WalletUnlocked);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_token_contract_0);
     dummy_var ^= ((int64_t) (void*) new_uint_8_list_0);

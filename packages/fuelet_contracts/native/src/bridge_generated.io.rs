@@ -10,12 +10,12 @@ pub extern "C" fn wire_new__static_method__TokenContract(
 }
 
 #[no_mangle]
-pub extern "C" fn wire_call_contract__method__TokenContract(
+pub extern "C" fn wire_config__method__TokenContract(
     port_: i64,
     that: *mut wire_TokenContract,
     contract_id: *mut wire_uint_8_list,
 ) {
-    wire_call_contract__method__TokenContract_impl(port_, that, contract_id)
+    wire_config__method__TokenContract_impl(port_, that, contract_id)
 }
 
 // Section: allocate functions

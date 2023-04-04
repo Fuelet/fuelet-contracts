@@ -19,6 +19,8 @@ use std::sync::Arc;
 
 // Section: imports
 
+use crate::model::token_initialize_config::TokenInitializeConfigModel;
+
 // Section: wire functions
 
 fn wire_new__static_method__TokenContract_impl(
@@ -37,21 +39,21 @@ fn wire_new__static_method__TokenContract_impl(
         },
     )
 }
-fn wire_call_contract__method__TokenContract_impl(
+fn wire_config__method__TokenContract_impl(
     port_: MessagePort,
     that: impl Wire2Api<TokenContract> + UnwindSafe,
     contract_id: impl Wire2Api<String> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
-            debug_name: "call_contract__method__TokenContract",
+            debug_name: "config__method__TokenContract",
             port: Some(port_),
             mode: FfiCallMode::Normal,
         },
         move || {
             let api_that = that.wire2api();
             let api_contract_id = contract_id.wire2api();
-            move |task_callback| Ok(TokenContract::call_contract(&api_that, api_contract_id))
+            move |task_callback| Ok(TokenContract::config(&api_that, api_contract_id))
         },
     )
 }
@@ -92,6 +94,18 @@ impl support::IntoDart for TokenContract {
     }
 }
 impl support::IntoDartExceptPrimitive for TokenContract {}
+
+impl support::IntoDart for TokenInitializeConfigModel {
+    fn into_dart(self) -> support::DartAbi {
+        vec![
+            self.name.into_dart(),
+            self.symbol.into_dart(),
+            self.decimals.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for TokenInitializeConfigModel {}
 
 // Section: executor
 

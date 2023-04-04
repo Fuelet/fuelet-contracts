@@ -180,25 +180,25 @@ class FueletContractsWire implements FlutterRustBridgeWireBase {
       _wire_new__static_method__TokenContractPtr
           .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
-  void wire_call_contract__method__TokenContract(
+  void wire_config__method__TokenContract(
     int port_,
     ffi.Pointer<wire_TokenContract> that,
     ffi.Pointer<wire_uint_8_list> contract_id,
   ) {
-    return _wire_call_contract__method__TokenContract(
+    return _wire_config__method__TokenContract(
       port_,
       that,
       contract_id,
     );
   }
 
-  late final _wire_call_contract__method__TokenContractPtr = _lookup<
+  late final _wire_config__method__TokenContractPtr = _lookup<
           ffi.NativeFunction<
               ffi.Void Function(ffi.Int64, ffi.Pointer<wire_TokenContract>,
                   ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_call_contract__method__TokenContract');
-  late final _wire_call_contract__method__TokenContract =
-      _wire_call_contract__method__TokenContractPtr.asFunction<
+      'wire_config__method__TokenContract');
+  late final _wire_config__method__TokenContract =
+      _wire_config__method__TokenContractPtr.asFunction<
           void Function(int, ffi.Pointer<wire_TokenContract>,
               ffi.Pointer<wire_uint_8_list>)>();
 

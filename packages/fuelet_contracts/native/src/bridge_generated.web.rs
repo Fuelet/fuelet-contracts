@@ -7,12 +7,8 @@ pub fn wire_new__static_method__TokenContract(port_: MessagePort, node_url: Stri
 }
 
 #[wasm_bindgen]
-pub fn wire_call_contract__method__TokenContract(
-    port_: MessagePort,
-    that: JsValue,
-    contract_id: String,
-) {
-    wire_call_contract__method__TokenContract_impl(port_, that, contract_id)
+pub fn wire_config__method__TokenContract(port_: MessagePort, that: JsValue, contract_id: String) {
+    wire_config__method__TokenContract_impl(port_, that, contract_id)
 }
 
 // Section: allocate functions

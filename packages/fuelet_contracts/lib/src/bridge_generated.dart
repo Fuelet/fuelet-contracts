@@ -20,10 +20,10 @@ abstract class FueletContracts {
 
   FlutterRustBridgeTaskConstMeta get kNewStaticMethodTokenContractConstMeta;
 
-  Future<String> callContractMethodTokenContract(
+  Future<TokenInitializeConfigModel> configMethodTokenContract(
       {required TokenContract that, required String contractId, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kCallContractMethodTokenContractConstMeta;
+  FlutterRustBridgeTaskConstMeta get kConfigMethodTokenContractConstMeta;
 
   DropFnType get dropOpaqueWalletUnlocked;
   ShareFnType get shareOpaqueWalletUnlocked;
@@ -60,11 +60,24 @@ class TokenContract {
           dynamic hint}) =>
       bridge.newStaticMethodTokenContract(nodeUrl: nodeUrl, hint: hint);
 
-  Future<String> callContract({required String contractId, dynamic hint}) =>
-      bridge.callContractMethodTokenContract(
+  Future<TokenInitializeConfigModel> config(
+          {required String contractId, dynamic hint}) =>
+      bridge.configMethodTokenContract(
         that: this,
         contractId: contractId,
       );
+}
+
+class TokenInitializeConfigModel {
+  final String name;
+  final String symbol;
+  final int decimals;
+
+  TokenInitializeConfigModel({
+    required this.name,
+    required this.symbol,
+    required this.decimals,
+  });
 }
 
 class FueletContractsImpl implements FueletContracts {
@@ -95,26 +108,25 @@ class FueletContractsImpl implements FueletContracts {
         argNames: ["nodeUrl"],
       );
 
-  Future<String> callContractMethodTokenContract(
+  Future<TokenInitializeConfigModel> configMethodTokenContract(
       {required TokenContract that, required String contractId, dynamic hint}) {
     var arg0 = _platform.api2wire_box_autoadd_token_contract(that);
     var arg1 = _platform.api2wire_String(contractId);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner
-          .wire_call_contract__method__TokenContract(port_, arg0, arg1),
-      parseSuccessData: _wire2api_String,
-      constMeta: kCallContractMethodTokenContractConstMeta,
+      callFfi: (port_) =>
+          _platform.inner.wire_config__method__TokenContract(port_, arg0, arg1),
+      parseSuccessData: _wire2api_token_initialize_config_model,
+      constMeta: kConfigMethodTokenContractConstMeta,
       argValues: [that, contractId],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta
-      get kCallContractMethodTokenContractConstMeta =>
-          const FlutterRustBridgeTaskConstMeta(
-            debugName: "call_contract__method__TokenContract",
-            argNames: ["that", "contractId"],
-          );
+  FlutterRustBridgeTaskConstMeta get kConfigMethodTokenContractConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "config__method__TokenContract",
+        argNames: ["that", "contractId"],
+      );
 
   DropFnType get dropOpaqueWalletUnlocked =>
       _platform.inner.drop_opaque_WalletUnlocked;
@@ -143,6 +155,18 @@ class FueletContractsImpl implements FueletContracts {
     return TokenContract(
       bridge: this,
       readWallet: _wire2api_WalletUnlocked(arr[0]),
+    );
+  }
+
+  TokenInitializeConfigModel _wire2api_token_initialize_config_model(
+      dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return TokenInitializeConfigModel(
+      name: _wire2api_String(arr[0]),
+      symbol: _wire2api_String(arr[1]),
+      decimals: _wire2api_u8(arr[2]),
     );
   }
 
