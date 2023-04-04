@@ -7,9 +7,9 @@ use fuels::signers::fuel_crypto::SecretKey;
 const READ_WALLET_PRIVATE_KEY: &str = "e5e05a4ab2919dc01b97c90a48853fd4dfbd204e92e44327375702ab09bb184e";
 
 abigen!(Contract(
-         name = "TokenContractAbi",
-         abi = "packages/fuelet_contracts/native/contracts/token_contract-abi.json"
-     ));
+    name = "TokenContractAbi",
+    abi = "packages/fuelet_contracts/native/contracts/token_contract/out/debug/token_contract-abi.json"
+));
 
 pub struct TokenContract {
     pub read_wallet: RustOpaque<WalletUnlocked>,
