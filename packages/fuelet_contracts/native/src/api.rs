@@ -1,7 +1,6 @@
 use std::str::FromStr;
 
-use flutter_rust_bridge::RustOpaque;
-pub use fuels::prelude::*;
+pub use fuels::prelude::{abigen, Bech32ContractId, ContractId, Provider, WalletUnlocked};
 use fuels::signers::fuel_crypto::SecretKey;
 
 pub use crate::model::token_initialize_config::TokenInitializeConfigModel;
@@ -14,17 +13,12 @@ abigen!(Contract(
 ));
 
 pub struct TokenContract {
-    pub read_wallet: RustOpaque<WalletUnlocked>,
+    pub node_url: String,
 }
 
 impl TokenContract {
-    #[tokio::main]
-    pub async fn new(node_url: String) -> TokenContract {
-        let provider = Provider::connect(node_url).await.unwrap();
-        let secret_key = SecretKey::from_str(READ_WALLET_PRIVATE_KEY).unwrap();
-        let read_wallet = WalletUnlocked::new_from_private_key(secret_key,
-                                                               Some(provider));
-        TokenContract { read_wallet: RustOpaque::new(read_wallet) }
+    pub fn new(node_url: String) -> TokenContract {
+        TokenContract { node_url }
     }
 
     #[tokio::main]
@@ -32,9 +26,10 @@ impl TokenContract {
         &self,
         contract_id: String,
     ) -> TokenInitializeConfigModel {
+        let read_wallet = self.create_read_wallet().await;
         let address: ContractId = ContractId::from_str(contract_id.as_str()).unwrap();
         let bech32_contract_id = Bech32ContractId::from(address);
-        let contract_instance = TokenContractAbi::new(bech32_contract_id, (*self.read_wallet).clone());
+        let contract_instance = TokenContractAbi::new(bech32_contract_id, read_wallet);
         let response = contract_instance
             .methods()
             .config()
@@ -46,5 +41,11 @@ impl TokenContract {
             symbol: response.value.symbol.into(),
             decimals: response.value.decimals.into(),
         }
+    }
+
+    async fn create_read_wallet(&self) -> WalletUnlocked {
+        let provider = Provider::connect(&self.node_url).await.unwrap();
+        let secret_key = SecretKey::from_str(READ_WALLET_PRIVATE_KEY).unwrap();
+        WalletUnlocked::new_from_private_key(secret_key, Some(provider))
     }
 }

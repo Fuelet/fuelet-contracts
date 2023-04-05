@@ -90,7 +90,7 @@ impl Wire2Api<u8> for u8 {
 
 impl support::IntoDart for TokenContract {
     fn into_dart(self) -> support::DartAbi {
-        vec![self.read_wallet.into_dart()].into_dart()
+        vec![self.node_url.into_dart()].into_dart()
     }
 }
 impl support::IntoDartExceptPrimitive for TokenContract {}

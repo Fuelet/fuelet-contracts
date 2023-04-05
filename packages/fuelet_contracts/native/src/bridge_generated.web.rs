@@ -15,21 +15,6 @@ pub fn wire_config__method__TokenContract(port_: MessagePort, that: JsValue, con
 
 // Section: related functions
 
-#[wasm_bindgen]
-pub fn drop_opaque_WalletUnlocked(ptr: *const c_void) {
-    unsafe {
-        Arc::<WalletUnlocked>::decrement_strong_count(ptr as _);
-    }
-}
-
-#[wasm_bindgen]
-pub fn share_opaque_WalletUnlocked(ptr: *const c_void) -> *const c_void {
-    unsafe {
-        Arc::<WalletUnlocked>::increment_strong_count(ptr as _);
-        ptr
-    }
-}
-
 // Section: impl Wire2Api
 
 impl Wire2Api<String> for String {
@@ -48,7 +33,7 @@ impl Wire2Api<TokenContract> for JsValue {
             self_.length()
         );
         TokenContract {
-            read_wallet: self_.get(0).wire2api(),
+            node_url: self_.get(0).wire2api(),
         }
     }
 }
@@ -63,16 +48,6 @@ impl Wire2Api<Vec<u8>> for Box<[u8]> {
 impl Wire2Api<String> for JsValue {
     fn wire2api(self) -> String {
         self.as_string().expect("non-UTF-8 string, or not a string")
-    }
-}
-impl Wire2Api<RustOpaque<WalletUnlocked>> for JsValue {
-    fn wire2api(self) -> RustOpaque<WalletUnlocked> {
-        #[cfg(target_pointer_width = "64")]
-        {
-            compile_error!("64-bit pointers are not supported.");
-        }
-
-        unsafe { support::opaque_from_dart((self.as_f64().unwrap() as usize) as _) }
     }
 }
 impl Wire2Api<u8> for JsValue {

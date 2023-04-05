@@ -23,13 +23,6 @@ class FueletContractsPlatform
   }
 
   @protected
-  wire_WalletUnlocked api2wire_WalletUnlocked(WalletUnlocked raw) {
-    final ptr = inner.new_WalletUnlocked();
-    _api_fill_to_wire_WalletUnlocked(raw, ptr);
-    return ptr;
-  }
-
-  @protected
   ffi.Pointer<wire_TokenContract> api2wire_box_autoadd_token_contract(
       TokenContract raw) {
     final ptr = inner.new_box_autoadd_token_contract_0();
@@ -45,15 +38,7 @@ class FueletContractsPlatform
   }
 // Section: finalizer
 
-  late final OpaqueTypeFinalizer _WalletUnlockedFinalizer =
-      OpaqueTypeFinalizer(inner._drop_opaque_WalletUnlockedPtr);
-  OpaqueTypeFinalizer get WalletUnlockedFinalizer => _WalletUnlockedFinalizer;
 // Section: api_fill_to_wire
-
-  void _api_fill_to_wire_WalletUnlocked(
-      WalletUnlocked apiObj, wire_WalletUnlocked wireObj) {
-    wireObj.ptr = apiObj.shareOrMove();
-  }
 
   void _api_fill_to_wire_box_autoadd_token_contract(
       TokenContract apiObj, ffi.Pointer<wire_TokenContract> wireObj) {
@@ -62,7 +47,7 @@ class FueletContractsPlatform
 
   void _api_fill_to_wire_token_contract(
       TokenContract apiObj, wire_TokenContract wireObj) {
-    wireObj.read_wallet = api2wire_WalletUnlocked(apiObj.readWallet);
+    wireObj.node_url = api2wire_String(apiObj.nodeUrl);
   }
 }
 
@@ -202,16 +187,6 @@ class FueletContractsWire implements FlutterRustBridgeWireBase {
           void Function(int, ffi.Pointer<wire_TokenContract>,
               ffi.Pointer<wire_uint_8_list>)>();
 
-  wire_WalletUnlocked new_WalletUnlocked() {
-    return _new_WalletUnlocked();
-  }
-
-  late final _new_WalletUnlockedPtr =
-      _lookup<ffi.NativeFunction<wire_WalletUnlocked Function()>>(
-          'new_WalletUnlocked');
-  late final _new_WalletUnlocked =
-      _new_WalletUnlockedPtr.asFunction<wire_WalletUnlocked Function()>();
-
   ffi.Pointer<wire_TokenContract> new_box_autoadd_token_contract_0() {
     return _new_box_autoadd_token_contract_0();
   }
@@ -238,35 +213,6 @@ class FueletContractsWire implements FlutterRustBridgeWireBase {
   late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr
       .asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
 
-  void drop_opaque_WalletUnlocked(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _drop_opaque_WalletUnlocked(
-      ptr,
-    );
-  }
-
-  late final _drop_opaque_WalletUnlockedPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'drop_opaque_WalletUnlocked');
-  late final _drop_opaque_WalletUnlocked = _drop_opaque_WalletUnlockedPtr
-      .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  ffi.Pointer<ffi.Void> share_opaque_WalletUnlocked(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _share_opaque_WalletUnlocked(
-      ptr,
-    );
-  }
-
-  late final _share_opaque_WalletUnlockedPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(
-              ffi.Pointer<ffi.Void>)>>('share_opaque_WalletUnlocked');
-  late final _share_opaque_WalletUnlocked = _share_opaque_WalletUnlockedPtr
-      .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>();
-
   void free_WireSyncReturn(
     WireSyncReturn ptr,
   ) {
@@ -291,12 +237,8 @@ class wire_uint_8_list extends ffi.Struct {
   external int len;
 }
 
-class wire_WalletUnlocked extends ffi.Struct {
-  external ffi.Pointer<ffi.Void> ptr;
-}
-
 class wire_TokenContract extends ffi.Struct {
-  external wire_WalletUnlocked read_wallet;
+  external ffi.Pointer<wire_uint_8_list> node_url;
 }
 
 typedef DartPostCObjectFnType = ffi.Pointer<

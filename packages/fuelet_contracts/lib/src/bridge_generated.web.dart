@@ -25,18 +25,13 @@ class FueletContractsPlatform extends FlutterRustBridgeBase<FueletContractsWire>
   }
 
   @protected
-  Object api2wire_WalletUnlocked(WalletUnlocked raw) {
-    return raw.shareOrMove();
-  }
-
-  @protected
   List<dynamic> api2wire_box_autoadd_token_contract(TokenContract raw) {
     return api2wire_token_contract(raw);
   }
 
   @protected
   List<dynamic> api2wire_token_contract(TokenContract raw) {
-    return [api2wire_WalletUnlocked(raw.readWallet)];
+    return [api2wire_String(raw.nodeUrl)];
   }
 
   @protected
@@ -44,11 +39,6 @@ class FueletContractsPlatform extends FlutterRustBridgeBase<FueletContractsWire>
     return raw;
   }
 // Section: finalizer
-
-  late final Finalizer<PlatformPointer> _WalletUnlockedFinalizer =
-      Finalizer<PlatformPointer>(inner.drop_opaque_WalletUnlocked);
-  Finalizer<PlatformPointer> get WalletUnlockedFinalizer =>
-      _WalletUnlockedFinalizer;
 }
 
 // Section: WASM wire module
@@ -66,10 +56,6 @@ class FueletContractsWasmModule implements WasmModule {
 
   external dynamic /* void */ wire_config__method__TokenContract(
       NativePortType port_, List<dynamic> that, String contract_id);
-
-  external dynamic /*  */ drop_opaque_WalletUnlocked(ptr);
-
-  external int /* *const c_void */ share_opaque_WalletUnlocked(ptr);
 }
 
 // Section: WASM wire connector
@@ -86,10 +72,4 @@ class FueletContractsWire
   void wire_config__method__TokenContract(
           NativePortType port_, List<dynamic> that, String contract_id) =>
       wasmModule.wire_config__method__TokenContract(port_, that, contract_id);
-
-  dynamic /*  */ drop_opaque_WalletUnlocked(ptr) =>
-      wasmModule.drop_opaque_WalletUnlocked(ptr);
-
-  int /* *const c_void */ share_opaque_WalletUnlocked(ptr) =>
-      wasmModule.share_opaque_WalletUnlocked(ptr);
 }

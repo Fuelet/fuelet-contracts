@@ -24,34 +24,15 @@ abstract class FueletContracts {
       {required TokenContract that, required String contractId, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kConfigMethodTokenContractConstMeta;
-
-  DropFnType get dropOpaqueWalletUnlocked;
-  ShareFnType get shareOpaqueWalletUnlocked;
-  OpaqueTypeFinalizer get WalletUnlockedFinalizer;
-}
-
-@sealed
-class WalletUnlocked extends FrbOpaque {
-  final FueletContracts bridge;
-  WalletUnlocked.fromRaw(int ptr, int size, this.bridge)
-      : super.unsafe(ptr, size);
-  @override
-  DropFnType get dropFn => bridge.dropOpaqueWalletUnlocked;
-
-  @override
-  ShareFnType get shareFn => bridge.shareOpaqueWalletUnlocked;
-
-  @override
-  OpaqueTypeFinalizer get staticFinalizer => bridge.WalletUnlockedFinalizer;
 }
 
 class TokenContract {
   final FueletContracts bridge;
-  final WalletUnlocked readWallet;
+  final String nodeUrl;
 
   TokenContract({
     required this.bridge,
-    required this.readWallet,
+    required this.nodeUrl,
   });
 
   static Future<TokenContract> newTokenContract(
@@ -128,13 +109,6 @@ class FueletContractsImpl implements FueletContracts {
         argNames: ["that", "contractId"],
       );
 
-  DropFnType get dropOpaqueWalletUnlocked =>
-      _platform.inner.drop_opaque_WalletUnlocked;
-  ShareFnType get shareOpaqueWalletUnlocked =>
-      _platform.inner.share_opaque_WalletUnlocked;
-  OpaqueTypeFinalizer get WalletUnlockedFinalizer =>
-      _platform.WalletUnlockedFinalizer;
-
   void dispose() {
     _platform.dispose();
   }
@@ -144,17 +118,13 @@ class FueletContractsImpl implements FueletContracts {
     return raw as String;
   }
 
-  WalletUnlocked _wire2api_WalletUnlocked(dynamic raw) {
-    return WalletUnlocked.fromRaw(raw[0], raw[1], this);
-  }
-
   TokenContract _wire2api_token_contract(dynamic raw) {
     final arr = raw as List<dynamic>;
     if (arr.length != 1)
       throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
     return TokenContract(
       bridge: this,
-      readWallet: _wire2api_WalletUnlocked(arr[0]),
+      nodeUrl: _wire2api_String(arr[0]),
     );
   }
 
