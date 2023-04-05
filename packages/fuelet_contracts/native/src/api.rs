@@ -5,6 +5,9 @@ use fuels::signers::fuel_crypto::SecretKey;
 
 pub use crate::model::token_initialize_config::TokenInitializeConfigModel;
 
+// DO NOT USE THIS PRIVATE KEY
+// It's present here only for the purpose of reading data from blockchain, cause currently you
+// must provide an instance of wallet to interact with smart contracts
 const READ_WALLET_PRIVATE_KEY: &str = "e5e05a4ab2919dc01b97c90a48853fd4dfbd204e92e44327375702ab09bb184e";
 
 abigen!(Contract(
