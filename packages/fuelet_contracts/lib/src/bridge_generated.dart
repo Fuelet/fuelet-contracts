@@ -15,9 +15,50 @@ import 'bridge_generated.io.dart'
 import 'package:meta/meta.dart';
 
 abstract class FueletContracts {
-  Future<String> helloFromRust({dynamic hint});
+  Future<TokenContract> newStaticMethodTokenContract(
+      {required String nodeUrl, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kHelloFromRustConstMeta;
+  FlutterRustBridgeTaskConstMeta get kNewStaticMethodTokenContractConstMeta;
+
+  Future<TokenInitializeConfigModel> configMethodTokenContract(
+      {required TokenContract that, required String contractId, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kConfigMethodTokenContractConstMeta;
+}
+
+class TokenContract {
+  final FueletContracts bridge;
+  final String nodeUrl;
+
+  TokenContract({
+    required this.bridge,
+    required this.nodeUrl,
+  });
+
+  static Future<TokenContract> newTokenContract(
+          {required FueletContracts bridge,
+          required String nodeUrl,
+          dynamic hint}) =>
+      bridge.newStaticMethodTokenContract(nodeUrl: nodeUrl, hint: hint);
+
+  Future<TokenInitializeConfigModel> config(
+          {required String contractId, dynamic hint}) =>
+      bridge.configMethodTokenContract(
+        that: this,
+        contractId: contractId,
+      );
+}
+
+class TokenInitializeConfigModel {
+  final String name;
+  final String symbol;
+  final int decimals;
+
+  TokenInitializeConfigModel({
+    required this.name,
+    required this.symbol,
+    required this.decimals,
+  });
 }
 
 class FueletContractsImpl implements FueletContracts {
@@ -29,20 +70,43 @@ class FueletContractsImpl implements FueletContracts {
   factory FueletContractsImpl.wasm(FutureOr<WasmModule> module) =>
       FueletContractsImpl(module as ExternalLibrary);
   FueletContractsImpl.raw(this._platform);
-  Future<String> helloFromRust({dynamic hint}) {
+  Future<TokenContract> newStaticMethodTokenContract(
+      {required String nodeUrl, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(nodeUrl);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) => _platform.inner.wire_hello_from_rust(port_),
-      parseSuccessData: _wire2api_String,
-      constMeta: kHelloFromRustConstMeta,
-      argValues: [],
+      callFfi: (port_) =>
+          _platform.inner.wire_new__static_method__TokenContract(port_, arg0),
+      parseSuccessData: (d) => _wire2api_token_contract(d),
+      constMeta: kNewStaticMethodTokenContractConstMeta,
+      argValues: [nodeUrl],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kHelloFromRustConstMeta =>
+  FlutterRustBridgeTaskConstMeta get kNewStaticMethodTokenContractConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
-        debugName: "hello_from_rust",
-        argNames: [],
+        debugName: "new__static_method__TokenContract",
+        argNames: ["nodeUrl"],
+      );
+
+  Future<TokenInitializeConfigModel> configMethodTokenContract(
+      {required TokenContract that, required String contractId, dynamic hint}) {
+    var arg0 = _platform.api2wire_box_autoadd_token_contract(that);
+    var arg1 = _platform.api2wire_String(contractId);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) =>
+          _platform.inner.wire_config__method__TokenContract(port_, arg0, arg1),
+      parseSuccessData: _wire2api_token_initialize_config_model,
+      constMeta: kConfigMethodTokenContractConstMeta,
+      argValues: [that, contractId],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kConfigMethodTokenContractConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "config__method__TokenContract",
+        argNames: ["that", "contractId"],
       );
 
   void dispose() {
@@ -52,6 +116,28 @@ class FueletContractsImpl implements FueletContracts {
 
   String _wire2api_String(dynamic raw) {
     return raw as String;
+  }
+
+  TokenContract _wire2api_token_contract(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return TokenContract(
+      bridge: this,
+      nodeUrl: _wire2api_String(arr[0]),
+    );
+  }
+
+  TokenInitializeConfigModel _wire2api_token_initialize_config_model(
+      dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return TokenInitializeConfigModel(
+      name: _wire2api_String(arr[0]),
+      symbol: _wire2api_String(arr[1]),
+      decimals: _wire2api_u8(arr[2]),
+    );
   }
 
   int _wire2api_u8(dynamic raw) {
@@ -64,5 +150,10 @@ class FueletContractsImpl implements FueletContracts {
 }
 
 // Section: api2wire
+
+@protected
+int api2wire_u8(int raw) {
+  return raw;
+}
 
 // Section: finalizer
