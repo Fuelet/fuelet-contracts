@@ -23,7 +23,7 @@ String uniswapAssetId =
     '0x76c4fda9074c4509eaf2652f82bace86e2c7a21bf9faff7bf6228034ebc0f8a2';
 
 void main() {
-  test('test hello rust', () async {
+  test('get config from a token contract', () async {
     var tokenContract = await TokenContract.newTokenContract(
         bridge: rustSdk, nodeUrl: betaApiUrl);
     var response = await tokenContract.config(contractId: compoundAssetId);
