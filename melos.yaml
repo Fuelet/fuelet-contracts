@@ -26,6 +26,10 @@ scripts:
     run: just --justfile packages/fuelet_contracts/justfile
     description: Generate wrapper over the native Rust code
 
+  ts-contracts-gen:
+    run: bash scripts/gen_ts_contracts.sh
+    description: Generate TypeScript types from contract ABIs
+
   build:
     run: melos run build:apple && melos run build:android # && melos run build:other
     description: Build all native libraries for the project.
