@@ -12,7 +12,7 @@ const READ_WALLET_PRIVATE_KEY: &str = "e5e05a4ab2919dc01b97c90a48853fd4dfbd204e9
 
 abigen!(Contract(
     name = "TokenContractAbi",
-    abi = "packages/fuelet_contracts/native/contracts/token_contract/out/debug/token_contract-abi.json"
+    abi = "contracts/token_contract/out/debug/token_contract-abi.json"
 ));
 
 pub struct TokenContract {
