@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
   plugin_platform_interface: ^2.0.2
   fuelet_contracts: ^1.1.0
 dev_dependencies:
@@ -22,6 +24,8 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+  assets:
+    - packages/flutter_fuelet_contracts/js/token_contract.js
   plugin:
     platforms:
       android:
@@ -34,3 +38,6 @@ flutter:
         ffiPlugin: true
       windows:
         ffiPlugin: true
+      web:
+        pluginClass: JsScriptInjector
+        fileName: js_script_injector.dart
