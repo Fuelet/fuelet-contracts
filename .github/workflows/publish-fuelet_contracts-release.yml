@@ -1,0 +1,10 @@
+name: Publish fuelet_contracts package release
+
+on:
+  push:
+    tags:
+      - "fuelet_contracts-*"
+
+jobs:
+  publish_github_release:
+    uses: ./.github/workflows/publish-github-release.yml
