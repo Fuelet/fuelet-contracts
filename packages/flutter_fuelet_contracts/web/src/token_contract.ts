@@ -1,5 +1,5 @@
-import { Wallet, WalletUnlocked } from "fuels";
-import { TokenContractAbi, TokenContractAbi__factory } from "./types";
+import { Wallet } from "fuels";
+import { TokenContractAbi__factory } from "./types";
 import { TokenInitializeConfigOutput } from "./types/TokenContractAbi";
 
 // DO NOT USE THIS PRIVATE KEY
@@ -9,19 +9,16 @@ const READ_WALLET_PRIVATE_KEY: string =
     "e5e05a4ab2919dc01b97c90a48853fd4dfbd204e92e44327375702ab09bb184e";
 
 class TokenContract {
-    private readonly wallet: WalletUnlocked;
-    private readonly contractInstance: TokenContractAbi;
-
-    constructor(nodeUrl: string, contractId: string) {
-        this.wallet = Wallet.fromPrivateKey(READ_WALLET_PRIVATE_KEY, nodeUrl);
-        this.contractInstance = TokenContractAbi__factory.connect(
+    async config(
+        nodeUrl: string,
+        contractId: string
+    ): Promise<TokenInitializeConfigOutput> {
+        const wallet = Wallet.fromPrivateKey(READ_WALLET_PRIVATE_KEY, nodeUrl);
+        const contractInstance = TokenContractAbi__factory.connect(
             contractId,
-            this.wallet
+            wallet
         );
-    }
-
-    async config(): Promise<TokenInitializeConfigOutput> {
-        const { value } = await this.contractInstance.functions.config().get();
+        const { value } = await contractInstance.functions.config().get();
         return value;
     }
 }
@@ -42,4 +39,4 @@ function injectObject(target: object, obj: object, name: PropertyKey) {
     }
 }
 
-injectObject(window, TokenContract, "flutter_fuelet_token_contract");
+injectObject(window, new TokenContract(), "flutter_fuelet_token_contract");

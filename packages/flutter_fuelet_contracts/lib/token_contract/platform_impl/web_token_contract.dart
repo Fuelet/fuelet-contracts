@@ -7,15 +7,18 @@ import 'base_token_contract.dart';
 import 'js_interop/js_token_contract.dart' as js_token_contract;
 
 class TokenContractImpl extends BaseTokenContract {
-  late final js_token_contract.TokenContract tokenContract;
+  late final String _nodeUrl;
+  late final String _contractId;
 
   TokenContractImpl(String nodeUrl, String contractId) {
-    tokenContract = js_token_contract.TokenContract(nodeUrl, contractId);
+    _nodeUrl = nodeUrl;
+    _contractId = contractId;
   }
 
   @override
   Future<TokenInitializeConfig> config() async {
-    final jsConfig = await promiseToFuture(tokenContract.config());
+    final jsConfig = await promiseToFuture(
+        js_token_contract.config(_enrichNetworkUrl(_nodeUrl), _contractId));
     final configMap = _jsObjectToMap(jsConfig);
     return TokenInitializeConfig(
         configMap['name'], configMap['symbol'], configMap['decimals']);
@@ -24,5 +27,19 @@ class TokenContractImpl extends BaseTokenContract {
   Map<String, dynamic> _jsObjectToMap(Object o) {
     final dartObject = dartify(o) as Map;
     return dartObject.cast<String, dynamic>();
+  }
+
+  String _enrichNetworkUrl(String url) {
+    String networkUrl = url;
+
+    if (!url.contains('graphql')) {
+      if (networkUrl[networkUrl.length - 1] == '/') {
+        networkUrl += 'graphql';
+      } else {
+        networkUrl += '/graphql';
+      }
+    }
+
+    return networkUrl;
   }
 }
