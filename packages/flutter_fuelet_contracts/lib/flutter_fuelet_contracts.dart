@@ -1,1 +1,1 @@
-export 'token_contract//token_contract.dart';
+export 'token_contract/token_contract.dart';
