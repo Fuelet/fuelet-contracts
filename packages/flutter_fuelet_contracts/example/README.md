@@ -1,6 +1,6 @@
-# flutter_fuels_example
+# flutter_fuelet_contracts_example
 
-Demonstrates how to use the flutter_fuels plugin.
+Demonstrates how to use the flutter_fuelet_contracts plugin.
 
 ## Getting Started
 

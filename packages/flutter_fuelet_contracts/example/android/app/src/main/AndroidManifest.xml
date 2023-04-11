@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fuelet.flutter_fuels_example">
+    package="com.fuelet.flutter_fuelet_contracts_example">
    <application
-        android:label="flutter_fuels_example"
+        android:label="flutter_fuelet_contracts_example"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
