@@ -6,16 +6,14 @@ import 'base_token_contract.dart';
 class TokenContractImpl extends BaseTokenContract {
   final FueletContracts _bridge = createLib();
   late final TokenContract _tokenContract;
-  late final String _contractId;
 
-  TokenContractImpl(String nodeUrl, String contractId) {
+  TokenContractImpl(String nodeUrl) {
     _tokenContract = TokenContract(bridge: _bridge, nodeUrl: nodeUrl);
-    _contractId = contractId;
   }
 
   @override
-  Future<TokenInitializeConfig> config() async {
-    final config = await _tokenContract.config(contractId: _contractId);
+  Future<TokenInitializeConfig> config(String contractId) async {
+    final config = await _tokenContract.config(contractId: contractId);
     return TokenInitializeConfig(config.name, config.symbol, config.decimals);
   }
 }

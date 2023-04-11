@@ -6,11 +6,11 @@ import 'token_initialize_config.dart';
 class TokenContract {
   late final TokenContractImpl _tokenContract;
 
-  TokenContract(String nodeUrl, String contractId) {
-    _tokenContract = TokenContractImpl(nodeUrl, contractId);
+  TokenContract(String nodeUrl) {
+    _tokenContract = TokenContractImpl(nodeUrl);
   }
 
-  Future<TokenInitializeConfig> config() {
-    return _tokenContract.config();
+  Future<TokenInitializeConfig> config(String contractId) {
+    return _tokenContract.config(contractId);
   }
 }

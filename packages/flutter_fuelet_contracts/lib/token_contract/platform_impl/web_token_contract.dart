@@ -8,17 +8,15 @@ import 'js_interop/js_token_contract.dart' as js_token_contract;
 
 class TokenContractImpl extends BaseTokenContract {
   late final String _nodeUrl;
-  late final String _contractId;
 
-  TokenContractImpl(String nodeUrl, String contractId) {
+  TokenContractImpl(String nodeUrl) {
     _nodeUrl = nodeUrl;
-    _contractId = contractId;
   }
 
   @override
-  Future<TokenInitializeConfig> config() async {
+  Future<TokenInitializeConfig> config(String contractId) async {
     final jsConfig = await promiseToFuture(
-        js_token_contract.config(_enrichNetworkUrl(_nodeUrl), _contractId));
+        js_token_contract.config(_enrichNetworkUrl(_nodeUrl), contractId));
     final configMap = _jsObjectToMap(jsConfig);
     return TokenInitializeConfig(
         configMap['name'], configMap['symbol'], configMap['decimals']);

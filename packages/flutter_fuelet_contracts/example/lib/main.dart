@@ -20,8 +20,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final TokenContract tokenContract =
-      TokenContract(_betaApiUrl, _compoundContractId);
+  final TokenContract tokenContract = TokenContract(_betaApiUrl);
   TokenInitializeConfig? _tokenConfig = null;
 
   @override
@@ -75,7 +74,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _getConfig() async {
-    final config = await tokenContract.config();
+    final config = await tokenContract.config(_compoundContractId);
     setState(() {
       _tokenConfig = config;
     });
