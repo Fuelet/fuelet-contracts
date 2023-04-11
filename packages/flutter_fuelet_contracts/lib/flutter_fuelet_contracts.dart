@@ -1,1 +1,1 @@
-export 'package:fuelet_contracts/fuelet_contracts.dart';
+export 'token_contract/token_contract.dart';
