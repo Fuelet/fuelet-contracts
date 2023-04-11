@@ -1,20 +1,20 @@
 PODS:
   - Flutter (1.0.0)
-  - flutter_fuels (1.0.0)
+  - flutter_fuelet_contracts (1.0.0)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - flutter_fuels (from `.symlinks/plugins/flutter_fuels/ios`)
+  - flutter_fuelet_contracts (from `.symlinks/plugins/flutter_fuelet_contracts/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  flutter_fuels:
-    :path: ".symlinks/plugins/flutter_fuels/ios"
+  flutter_fuelet_contracts:
+    :path: ".symlinks/plugins/flutter_fuelet_contracts/ios"
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_fuels: bf6e195e7c2bc6380a11f4d41f0aa8134238b7a8
+  flutter_fuelet_contracts: c52e92b0940f66483b517ffec38caceabb67d870
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 
