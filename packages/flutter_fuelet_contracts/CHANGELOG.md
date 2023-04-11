@@ -1,3 +1,7 @@
+## 0.0.4
+
+ - **FEAT**: move contract id to the config method.
+
 ## 0.0.3
 
  - **FEAT**: universal token contract ([#3](https://github.com/Fuelet/fuelet-contracts/issues/3)).
