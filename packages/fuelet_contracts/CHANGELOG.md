@@ -1,3 +1,7 @@
+## 1.3.0
+
+ - **FEAT**: upgrade fuels-rs to support beta-3.
+
 ## 1.2.0
 
  - **FEAT**: universal token contract ([#3](https://github.com/Fuelet/fuelet-contracts/issues/3)).

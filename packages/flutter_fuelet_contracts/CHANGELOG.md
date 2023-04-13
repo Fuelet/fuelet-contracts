@@ -1,3 +1,8 @@
+## 0.0.5
+
+ - **FEAT**: upgrade fuels-ts to support beta-3.
+ - **FEAT**: upgrade fuels-rs to support beta-3.
+
 ## 0.0.4
 
  - **FEAT**: move contract id to the config method.
