@@ -1,3 +1,7 @@
+## 1.3.2
+
+ - **FIX**: add uuid dependency.
+
 ## 1.3.1
 
  - **FIX**: remove old generated files.
