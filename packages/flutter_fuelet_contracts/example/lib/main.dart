@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fuelet_contracts/token_contract/token_contract.dart';
 import 'package:flutter_fuelet_contracts/token_contract/token_initialize_config.dart';
 
-const _betaApiUrl = 'https://node-beta-2.fuel.network';
-const _compoundContractId =
-    '0x13397cf760e15cd30194fa9d884cf4dd810c5d9e6459a4053e65f74f80b92f32';
+const _betaApiUrl = 'https://beta-3.fuel.network';
+const _swayTokenContractId =
+    '0x89eac25d412c5c1b63d212deacc109dcff804eff70101fe0fc72167bc7884aa2';
 
 void main() {
   runApp(const MyApp());
@@ -74,7 +74,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _getConfig() async {
-    final config = await tokenContract.config(_compoundContractId);
+    final config = await tokenContract.config(_swayTokenContractId);
     setState(() {
       _tokenConfig = config;
     });

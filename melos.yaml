@@ -43,7 +43,7 @@ scripts:
     description: Build the .tar.gz for Android.
 
   build:web:
-    run: bash scripts/build-web.sh
+    run: melos run ts-contracts-gen && bash scripts/build-web.sh
     description: Build web.
 
   # build:other:
