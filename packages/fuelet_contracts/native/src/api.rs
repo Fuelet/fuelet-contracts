@@ -1,7 +1,7 @@
 use std::str::FromStr;
 
 pub use fuels::prelude::{abigen, Bech32ContractId, ContractId, Provider, WalletUnlocked};
-use fuels::signers::fuel_crypto::SecretKey;
+use fuels::accounts::fuel_crypto::SecretKey;
 
 pub use crate::model::token_initialize_config::TokenInitializeConfigModel;
 

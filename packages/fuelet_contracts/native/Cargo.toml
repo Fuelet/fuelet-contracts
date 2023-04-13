@@ -7,9 +7,10 @@ edition = "2021"
 crate-type = ["staticlib", "cdylib"]
 
 [build-dependencies]
-flutter_rust_bridge_codegen = "1.57.0"
+flutter_rust_bridge_codegen = "1.74.0"
 
 [dependencies]
-flutter_rust_bridge = "1.57.0"
-fuels = { version = "0.35", features = ["fuel-core-lib"] }
-tokio = { version = "1.14.0", features = ["full"] }
+flutter_rust_bridge = "1.74.0"
+fuels = "0.39.0"
+fuels-accounts = "0.39.0" # must be compatible with the fuels version
+tokio = { version = "1.14.0", features = ["rt-multi-thread"] }
