@@ -1,0 +1,15 @@
+[project]
+name = "NFT"
+version = "0.0.1"
+authors = ["Thunder>"]
+edition = "2021"
+license = "Apache-2.0"
+
+[dev-dependencies]
+fuels = { version = "0.27", features = ["fuel-core-lib"] }
+tokio = { version = "1.12", features = ["rt", "macros"] }
+
+[[test]]
+harness = true
+name = "integration_tests"
+path = "tests/harness.rs"
