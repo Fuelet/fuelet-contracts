@@ -5,7 +5,7 @@ import '../../ffi/mobile_wrapper.dart';
 import 'base_token_contract.dart';
 
 class TokenContractImpl extends BaseTokenContract {
-  final FueletContracts _bridge = createLib();
+  static final FueletContracts _bridge = createLib();
   late final TokenContract _tokenContract;
 
   TokenContractImpl(String nodeUrl) {
