@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 String projectPath = Directory.current.parent.parent.path;
 final dynLib =
     DynamicLibrary.open('$projectPath/target/debug/libfuelet_contracts.dylib');
-var rustSdk = createWrapper(dynLib);
+var rustSdk = FueletContractsImpl(dynLib);
 
 const betaApiUrl = 'https://beta-3.fuel.network';
 
