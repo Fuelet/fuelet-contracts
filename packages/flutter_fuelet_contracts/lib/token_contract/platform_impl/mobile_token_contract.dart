@@ -1,6 +1,7 @@
 import 'package:flutter_fuelet_contracts/token_contract/token_initialize_config.dart';
 import 'package:fuelet_contracts/fuelet_contracts.dart';
 
+import '../../ffi/mobile_wrapper.dart';
 import 'base_token_contract.dart';
 
 class TokenContractImpl extends BaseTokenContract {

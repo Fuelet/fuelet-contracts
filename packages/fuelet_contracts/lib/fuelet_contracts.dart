@@ -4,5 +4,3 @@
 library fuelet_contracts;
 
 export 'src/fuelet_contracts_base.dart';
-
-export 'src/ffi.dart';
