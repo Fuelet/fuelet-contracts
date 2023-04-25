@@ -1,3 +1,7 @@
+## 0.0.6
+
+ - **FEAT**: add ability to set apple dyn lib factory.
+
 ## 0.0.5+2
 
  - Update a dependency to the latest release.

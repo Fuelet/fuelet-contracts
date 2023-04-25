@@ -1,3 +1,8 @@
+## 1.4.0
+
+ - **FIX**: specify uuid version.
+ - **FEAT**: add ability to set apple dyn lib factory.
+
 ## 1.3.2
 
  - **FIX**: add uuid dependency.
