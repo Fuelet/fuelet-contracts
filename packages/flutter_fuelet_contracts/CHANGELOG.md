@@ -1,3 +1,8 @@
+## 0.0.7
+
+ - **FIX**: make bridge var to be static.
+ - **FEAT**: specify the framework name when loading dynlib for apple.
+
 ## 0.0.6
 
  - **FEAT**: add ability to set apple dyn lib factory.

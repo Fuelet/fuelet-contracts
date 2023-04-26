@@ -1,3 +1,7 @@
+## 1.4.1
+
+ - **FIX**: init rust sdk in tests.
+
 ## 1.4.0
 
  - **FIX**: specify uuid version.
