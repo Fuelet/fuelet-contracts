@@ -1,6 +1,3 @@
-import 'package:flutter_fuelet_contracts/token_contract/token_initialize_config.dart'
-    as stub_send_money_predicate;
-
 import 'base_send_coins_predicate.dart';
 
 class SendCoinsPredicateImpl extends BaseSendCoinsPredicate {

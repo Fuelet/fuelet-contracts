@@ -5,7 +5,7 @@ import 'platform_impl/stub_send_coins_predicate.dart'
 class SendCoinsPredicate {
   late final SendCoinsPredicateImpl _predicate;
 
-  TokenContract(String nodeUrl, String codeHex) {
+  SendCoinsPredicate(String nodeUrl, String codeHex) {
     _predicate = SendCoinsPredicateImpl(nodeUrl, codeHex);
   }
 
