@@ -83,7 +83,7 @@ impl SendCoinsPredicate {
         let recipient = Bech32Address::from_str(to.as_str()).unwrap();
         let tx_params = TxParameters::default()
             .set_gas_price(1)
-            .set_gas_limit(100_000_000)
+            .set_gas_limit(10_000_000)
             .set_maturity(0);
         let tx = self.create_transfer_tx(&recipient, amount, BASE_ASSET_ID, tx_params, &provider, Some(predicate_data)).await;
         provider.send_transaction(&tx).await.unwrap();
