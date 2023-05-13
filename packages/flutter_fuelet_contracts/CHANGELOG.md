@@ -1,3 +1,7 @@
+## 0.0.7+2
+
+ - **FIX**: ios headers.
+
 ## 0.0.7+1
 
  - Update a dependency to the latest release.

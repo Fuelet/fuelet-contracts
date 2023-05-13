@@ -1,3 +1,7 @@
+## 1.5.1
+
+ - **FIX**: lower gas limits.
+
 ## 1.5.0
 
  - **FEAT**: finish the predicate.
