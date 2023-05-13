@@ -57,6 +57,64 @@ fn wire_config__method__TokenContract_impl(
         },
     )
 }
+fn wire_new__static_method__SendCoinsPredicate_impl(
+    port_: MessagePort,
+    node_url: impl Wire2Api<String> + UnwindSafe,
+    code_hex: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "new__static_method__SendCoinsPredicate",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_node_url = node_url.wire2api();
+            let api_code_hex = code_hex.wire2api();
+            move |task_callback| Ok(SendCoinsPredicate::new(api_node_url, api_code_hex))
+        },
+    )
+}
+fn wire_address__method__SendCoinsPredicate_impl(
+    port_: MessagePort,
+    that: impl Wire2Api<SendCoinsPredicate> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "address__method__SendCoinsPredicate",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.wire2api();
+            move |task_callback| Ok(SendCoinsPredicate::address(&api_that))
+        },
+    )
+}
+fn wire_transfer_to__method__SendCoinsPredicate_impl(
+    port_: MessagePort,
+    that: impl Wire2Api<SendCoinsPredicate> + UnwindSafe,
+    to: impl Wire2Api<String> + UnwindSafe,
+    secret: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "transfer_to__method__SendCoinsPredicate",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.wire2api();
+            let api_to = to.wire2api();
+            let api_secret = secret.wire2api();
+            move |task_callback| {
+                Ok(SendCoinsPredicate::transfer_to(
+                    &api_that, api_to, api_secret,
+                ))
+            }
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks
@@ -87,6 +145,13 @@ impl Wire2Api<u8> for u8 {
 }
 
 // Section: impl IntoDart
+
+impl support::IntoDart for SendCoinsPredicate {
+    fn into_dart(self) -> support::DartAbi {
+        vec![self.node_url.into_dart(), self.code.into_dart()].into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for SendCoinsPredicate {}
 
 impl support::IntoDart for TokenContract {
     fn into_dart(self) -> support::DartAbi {
