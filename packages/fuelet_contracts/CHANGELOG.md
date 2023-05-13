@@ -1,3 +1,8 @@
+## 1.5.0
+
+ - **FEAT**: finish the predicate.
+ - **FEAT**: add send money predicate.
+
 ## 1.4.1
 
  - **FIX**: init rust sdk in tests.

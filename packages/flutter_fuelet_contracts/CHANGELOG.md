@@ -1,3 +1,7 @@
+## 0.0.7+1
+
+ - Update a dependency to the latest release.
+
 ## 0.0.7
 
  - **FIX**: make bridge var to be static.
