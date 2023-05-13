@@ -1,3 +1,7 @@
+## 0.0.7+3
+
+ - Bump "flutter_fuelet_contracts" to `0.0.7+3`.
+
 ## 0.0.7+2
 
  - **FIX**: ios headers.

@@ -1,3 +1,7 @@
+## 1.5.2
+
+ - Bump "fuelet_contracts" to `1.5.2`.
+
 ## 1.5.1
 
  - **FIX**: lower gas limits.
