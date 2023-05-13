@@ -41,8 +41,9 @@ pub extern "C" fn wire_transfer_to__method__SendCoinsPredicate(
     that: *mut wire_SendCoinsPredicate,
     to: *mut wire_uint_8_list,
     secret: *mut wire_uint_8_list,
+    amount: u64,
 ) {
-    wire_transfer_to__method__SendCoinsPredicate_impl(port_, that, to, secret)
+    wire_transfer_to__method__SendCoinsPredicate_impl(port_, that, to, secret, amount)
 }
 
 // Section: allocate functions

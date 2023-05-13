@@ -96,6 +96,7 @@ fn wire_transfer_to__method__SendCoinsPredicate_impl(
     that: impl Wire2Api<SendCoinsPredicate> + UnwindSafe,
     to: impl Wire2Api<String> + UnwindSafe,
     secret: impl Wire2Api<String> + UnwindSafe,
+    amount: impl Wire2Api<u64> + UnwindSafe,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -107,9 +108,10 @@ fn wire_transfer_to__method__SendCoinsPredicate_impl(
             let api_that = that.wire2api();
             let api_to = to.wire2api();
             let api_secret = secret.wire2api();
+            let api_amount = amount.wire2api();
             move |task_callback| {
                 Ok(SendCoinsPredicate::transfer_to(
-                    &api_that, api_to, api_secret,
+                    &api_that, api_to, api_secret, api_amount,
                 ))
             }
         },
@@ -138,6 +140,11 @@ where
     }
 }
 
+impl Wire2Api<u64> for u64 {
+    fn wire2api(self) -> u64 {
+        self
+    }
+}
 impl Wire2Api<u8> for u8 {
     fn wire2api(self) -> u8 {
         self

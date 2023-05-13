@@ -77,7 +77,7 @@ impl SendCoinsPredicate {
     }
 
     #[tokio::main]
-    pub async fn transfer_to(&self, to: String, secret: String) {
+    pub async fn transfer_to(&self, to: String, secret: String, amount: u64) {
         let provider = Provider::connect(&self.node_url).await.unwrap();
         let predicate_data = Bits256::from_hex_str(secret.as_str()).unwrap();
         let recipient = Bech32Address::from_str(to.as_str()).unwrap();
@@ -85,7 +85,7 @@ impl SendCoinsPredicate {
             .set_gas_price(1)
             .set_gas_limit(100_000_000)
             .set_maturity(0);
-        let tx = self.create_transfer_tx(&recipient, 100, BASE_ASSET_ID, tx_params, &provider, Some(predicate_data)).await;
+        let tx = self.create_transfer_tx(&recipient, amount, BASE_ASSET_ID, tx_params, &provider, Some(predicate_data)).await;
         provider.send_transaction(&tx).await.unwrap();
     }
 
@@ -98,7 +98,8 @@ impl SendCoinsPredicate {
         provider: &Provider,
         predicate_data: Option<Bits256>,
     ) -> ScriptTransaction {
-        let mut predicate: Predicate = self.get_predicate_instance();
+        let mut predicate: Predicate = self.get_predicate_instance()
+            .with_provider(provider.clone());
         predicate = match predicate_data {
             Some(data) => {
                 let encoded_data = send_money_predicate_binding::encode_data(data);

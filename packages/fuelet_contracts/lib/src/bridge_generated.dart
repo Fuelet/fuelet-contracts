@@ -36,6 +36,7 @@ abstract class FueletContracts {
       {required SendCoinsPredicate that,
       required String to,
       required String secret,
+      required int amount,
       dynamic hint});
 
   FlutterRustBridgeTaskConstMeta
@@ -67,11 +68,15 @@ class SendCoinsPredicate {
       );
 
   Future<void> transferTo(
-          {required String to, required String secret, dynamic hint}) =>
+          {required String to,
+          required String secret,
+          required int amount,
+          dynamic hint}) =>
       bridge.transferToMethodSendCoinsPredicate(
         that: this,
         to: to,
         secret: secret,
+        amount: amount,
       );
 }
 
@@ -203,17 +208,19 @@ class FueletContractsImpl implements FueletContracts {
       {required SendCoinsPredicate that,
       required String to,
       required String secret,
+      required int amount,
       dynamic hint}) {
     var arg0 = _platform.api2wire_box_autoadd_send_coins_predicate(that);
     var arg1 = _platform.api2wire_String(to);
     var arg2 = _platform.api2wire_String(secret);
+    var arg3 = _platform.api2wire_u64(amount);
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner
           .wire_transfer_to__method__SendCoinsPredicate(
-              port_, arg0, arg1, arg2),
+              port_, arg0, arg1, arg2, arg3),
       parseSuccessData: _wire2api_unit,
       constMeta: kTransferToMethodSendCoinsPredicateConstMeta,
-      argValues: [that, to, secret],
+      argValues: [that, to, secret, amount],
       hint: hint,
     ));
   }
@@ -222,7 +229,7 @@ class FueletContractsImpl implements FueletContracts {
       get kTransferToMethodSendCoinsPredicateConstMeta =>
           const FlutterRustBridgeTaskConstMeta(
             debugName: "transfer_to__method__SendCoinsPredicate",
-            argNames: ["that", "to", "secret"],
+            argNames: ["that", "to", "secret", "amount"],
           );
 
   void dispose() {
@@ -315,6 +322,11 @@ class FueletContractsPlatform
     final ptr = inner.new_box_autoadd_token_contract_0();
     _api_fill_to_wire_token_contract(raw, ptr.ref);
     return ptr;
+  }
+
+  @protected
+  int api2wire_u64(int raw) {
+    return raw;
   }
 
   @protected
@@ -530,27 +542,33 @@ class FueletContractsWire implements FlutterRustBridgeWireBase {
     ffi.Pointer<wire_SendCoinsPredicate> that,
     ffi.Pointer<wire_uint_8_list> to,
     ffi.Pointer<wire_uint_8_list> secret,
+    int amount,
   ) {
     return _wire_transfer_to__method__SendCoinsPredicate(
       port_,
       that,
       to,
       secret,
+      amount,
     );
   }
 
   late final _wire_transfer_to__method__SendCoinsPredicatePtr = _lookup<
-          ffi.NativeFunction<
-              ffi.Void Function(
-                  ffi.Int64,
-                  ffi.Pointer<wire_SendCoinsPredicate>,
-                  ffi.Pointer<wire_uint_8_list>,
-                  ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_transfer_to__method__SendCoinsPredicate');
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_SendCoinsPredicate>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Uint64)>>('wire_transfer_to__method__SendCoinsPredicate');
   late final _wire_transfer_to__method__SendCoinsPredicate =
       _wire_transfer_to__method__SendCoinsPredicatePtr.asFunction<
-          void Function(int, ffi.Pointer<wire_SendCoinsPredicate>,
-              ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+          void Function(
+              int,
+              ffi.Pointer<wire_SendCoinsPredicate>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              int)>();
 
   ffi.Pointer<wire_SendCoinsPredicate>
       new_box_autoadd_send_coins_predicate_0() {
