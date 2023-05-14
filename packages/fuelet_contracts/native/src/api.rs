@@ -1,11 +1,13 @@
 use std::str::FromStr;
 
-use fuels::accounts::fuel_crypto::SecretKey;
+use fuels::accounts::fuel_crypto::{SecretKey, Signature};
 use fuels::accounts::predicate::Predicate;
 use fuels::prelude::{Account, BASE_ASSET_ID, Bech32Address, Bech32ContractId, ContractId, Provider, ScriptTransaction, Transaction, TxParameters, ViewOnlyAccount, WalletUnlocked};
+use fuels::tx::Bytes32;
 use fuels::types::transaction_builders::TransactionBuilder;
-use fuels::types::{AssetId, Bits256};
+use fuels::types::{AssetId, B512, Bits256};
 use fuels::types::transaction_builders::ScriptTransactionBuilder;
+use fuels_accounts::fuel_crypto::Message;
 
 pub use crate::bindings::{send_money_predicate_binding, token_contract_binding};
 pub use crate::model::token_initialize_config::TokenInitializeConfigModel;
@@ -76,13 +78,18 @@ impl SendCoinsPredicate {
     #[tokio::main]
     pub async fn transfer_to(&self, to: String, secret: String, amount: u64) -> String {
         let provider = Provider::connect(&self.node_url).await.unwrap();
-        let predicate_data = Bits256::from_hex_str(secret.as_str()).unwrap();
+        let secret_key = SecretKey::from_str(secret.as_str()).unwrap();
         let recipient = Bech32Address::from_str(to.as_str()).unwrap();
+
+        let message_to_sign: Bytes32 = recipient.hash();
+        let message = unsafe { Message::from_bytes_unchecked(*message_to_sign) };
+        let signature: B512 = Signature::sign(&secret_key, &message).as_ref().try_into().unwrap();
+
         let tx_params = TxParameters::default()
             .set_gas_price(1)
             .set_gas_limit(10_000_000)
             .set_maturity(0);
-        let tx = self.create_transfer_tx(&recipient, amount, BASE_ASSET_ID, tx_params, &provider, Some(predicate_data)).await;
+        let tx = self.create_transfer_tx(&recipient, amount, BASE_ASSET_ID, tx_params, &provider, signature).await;
         provider.send_transaction(&tx).await.unwrap();
         tx.id().to_string()
     }
@@ -94,17 +101,12 @@ impl SendCoinsPredicate {
         asset_id: AssetId,
         tx_parameters: TxParameters,
         provider: &Provider,
-        predicate_data: Option<Bits256>,
+        predicate_data: B512,
     ) -> ScriptTransaction {
+        let encoded_data = send_money_predicate_binding::encode_data(predicate_data);
         let mut predicate: Predicate = self.get_predicate_instance()
-            .with_provider(provider.clone());
-        predicate = match predicate_data {
-            Some(data) => {
-                let encoded_data = send_money_predicate_binding::encode_data(data);
-                predicate.with_data(encoded_data)
-            }
-            None => predicate,
-        };
+            .with_provider(provider.clone())
+            .with_data(encoded_data);
         let inputs = predicate
             .get_asset_inputs_for_amount(asset_id, amount, None)
             .await

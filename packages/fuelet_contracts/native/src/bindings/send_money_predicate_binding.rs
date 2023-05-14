@@ -1,5 +1,5 @@
 use fuels::prelude::abigen;
-use fuels::types::Bits256;
+use fuels::types::B512;
 use fuels::types::unresolved_bytes::UnresolvedBytes;
 
 abigen!(Predicate(
@@ -7,6 +7,6 @@ abigen!(Predicate(
     abi = "contracts/send_money_predicate/out/debug/send_money_predicate-abi.json"
 ));
 
-pub fn encode_data(data: Bits256) -> UnresolvedBytes {
+pub fn encode_data(data: B512) -> UnresolvedBytes {
     SendMoneyPredicateEncoder::encode_data(data)
 }

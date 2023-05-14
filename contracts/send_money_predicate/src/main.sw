@@ -1,7 +1,15 @@
 predicate;
 
-const SECRET = 0x2ee0702d32bade831ecf5ebf6707db9452a1be9d508f2fce9d0e4b3b4be751bd;
+use std::{b512::B512, ecr::{ec_recover_address}};
 
-fn main(secret: b256) -> bool {
-    secret == SECRET
+// TODO : Remove once __gtf getters implemented in std-lib
+const GTF_OUTPUT_COIN_TO = 0x202;
+
+const SECRET_PUBLIC_KEY = 0x3b421fbbb41ae9aa69028615c34811125d057eb033e4b39e1d8957dc434d7145;
+
+fn main(signature: B512) -> bool {
+    let receiver = Address::from(__gtf::<b256>(0, GTF_OUTPUT_COIN_TO));
+    let signed_message = receiver.value;
+    let recovered_address = ec_recover_address(signature, signed_message).unwrap();
+    recovered_address.value == SECRET_PUBLIC_KEY
 }
