@@ -1,3 +1,7 @@
+## 0.0.9+1
+
+ - Update a dependency to the latest release.
+
 ## 0.0.9
 
  - **FIX**: fix warnings.

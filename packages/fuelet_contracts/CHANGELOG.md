@@ -1,3 +1,7 @@
+## 1.7.0
+
+ - **FEAT**: switch to updated predicate.
+
 ## 1.6.0
 
  - **FEAT**: return tx id.
