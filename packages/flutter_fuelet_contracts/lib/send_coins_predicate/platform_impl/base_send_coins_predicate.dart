@@ -3,5 +3,5 @@ abstract class BaseSendCoinsPredicate {
 
   Future<String> address();
 
-  Future<void> transferTo(String receiver, int amount, String secret);
+  Future<String> transferTo(String receiver, int amount, String secret);
 }

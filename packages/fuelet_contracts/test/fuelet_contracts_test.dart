@@ -43,6 +43,7 @@ void main() {
   test('transfer coins from predicate', () async {
     var pred = await SendCoinsPredicate.newSendCoinsPredicate(
         bridge: rustSdk, nodeUrl: betaApiUrl, codeHex: predicateBytecode);
-    await pred.transferTo(to: receiver, secret: predicateSecret, amount: 100);
+    var txId = await pred.transferTo(to: receiver, secret: predicateSecret, amount: 100);
+    print(txId);
   });
 }

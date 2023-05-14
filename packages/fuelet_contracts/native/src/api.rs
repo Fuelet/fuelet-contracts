@@ -2,10 +2,7 @@ use std::str::FromStr;
 
 use fuels::accounts::fuel_crypto::SecretKey;
 use fuels::accounts::predicate::Predicate;
-use fuels::prelude::{
-    Account, BASE_ASSET_ID, Bech32Address, Bech32ContractId, ContractId, Provider,
-    ScriptTransaction, TxParameters, ViewOnlyAccount, WalletUnlocked,
-};
+use fuels::prelude::{Account, BASE_ASSET_ID, Bech32Address, Bech32ContractId, ContractId, Provider, ScriptTransaction, Transaction, TxParameters, ViewOnlyAccount, WalletUnlocked};
 use fuels::types::transaction_builders::TransactionBuilder;
 use fuels::types::{AssetId, Bits256};
 use fuels::types::transaction_builders::ScriptTransactionBuilder;
@@ -77,7 +74,7 @@ impl SendCoinsPredicate {
     }
 
     #[tokio::main]
-    pub async fn transfer_to(&self, to: String, secret: String, amount: u64) {
+    pub async fn transfer_to(&self, to: String, secret: String, amount: u64) -> String {
         let provider = Provider::connect(&self.node_url).await.unwrap();
         let predicate_data = Bits256::from_hex_str(secret.as_str()).unwrap();
         let recipient = Bech32Address::from_str(to.as_str()).unwrap();
@@ -87,6 +84,7 @@ impl SendCoinsPredicate {
             .set_maturity(0);
         let tx = self.create_transfer_tx(&recipient, amount, BASE_ASSET_ID, tx_params, &provider, Some(predicate_data)).await;
         provider.send_transaction(&tx).await.unwrap();
+        tx.id().to_string()
     }
 
     async fn create_transfer_tx(

@@ -13,7 +13,7 @@ class SendCoinsPredicate {
     return _predicate.address();
   }
 
-  Future<void> transferTo(String receiver, int amount, String secret) {
+  Future<String> transferTo(String receiver, int amount, String secret) {
     return _predicate.transferTo(receiver, amount, secret);
   }
 }

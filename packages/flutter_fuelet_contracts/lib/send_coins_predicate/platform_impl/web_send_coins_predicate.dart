@@ -9,7 +9,7 @@ class SendCoinsPredicateImpl extends BaseSendCoinsPredicate {
   }
 
   @override
-  Future<void> transferTo(String receiver, int amount, String secret) {
+  Future<String> transferTo(String receiver, int amount, String secret) {
     throw Exception('Not implemented');
   }
 }

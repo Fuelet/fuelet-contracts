@@ -32,7 +32,7 @@ abstract class FueletContracts {
 
   FlutterRustBridgeTaskConstMeta get kAddressMethodSendCoinsPredicateConstMeta;
 
-  Future<void> transferToMethodSendCoinsPredicate(
+  Future<String> transferToMethodSendCoinsPredicate(
       {required SendCoinsPredicate that,
       required String to,
       required String secret,
@@ -67,7 +67,7 @@ class SendCoinsPredicate {
         that: this,
       );
 
-  Future<void> transferTo(
+  Future<String> transferTo(
           {required String to,
           required String secret,
           required int amount,
@@ -204,7 +204,7 @@ class FueletContractsImpl implements FueletContracts {
             argNames: ["that"],
           );
 
-  Future<void> transferToMethodSendCoinsPredicate(
+  Future<String> transferToMethodSendCoinsPredicate(
       {required SendCoinsPredicate that,
       required String to,
       required String secret,
@@ -218,7 +218,7 @@ class FueletContractsImpl implements FueletContracts {
       callFfi: (port_) => _platform.inner
           .wire_transfer_to__method__SendCoinsPredicate(
               port_, arg0, arg1, arg2, arg3),
-      parseSuccessData: _wire2api_unit,
+      parseSuccessData: _wire2api_String,
       constMeta: kTransferToMethodSendCoinsPredicateConstMeta,
       argValues: [that, to, secret, amount],
       hint: hint,
@@ -280,10 +280,6 @@ class FueletContractsImpl implements FueletContracts {
 
   Uint8List _wire2api_uint_8_list(dynamic raw) {
     return raw as Uint8List;
-  }
-
-  void _wire2api_unit(dynamic raw) {
-    return;
   }
 }
 
