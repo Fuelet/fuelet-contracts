@@ -1,4 +1,4 @@
-release_tag_name = 'fuelet_contracts-v1.5.2' # generated; do not edit
+release_tag_name = 'fuelet_contracts-v1.6.0' # generated; do not edit
 
 # We cannot distribute the XCFramework alongside the library directly,
 # so we have to fetch the correct version here.

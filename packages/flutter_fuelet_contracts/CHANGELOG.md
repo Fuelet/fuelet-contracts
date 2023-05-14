@@ -1,3 +1,8 @@
+## 0.0.9
+
+ - **FIX**: fix warnings.
+ - **FEAT**: return tx id.
+
 ## 0.0.8
 
  - **FEAT**: flutter wrapper for the predicate.
