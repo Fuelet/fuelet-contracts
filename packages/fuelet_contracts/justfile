@@ -13,7 +13,7 @@ gen:
         --dart-output lib/src/bridge_generated.dart \
         --c-output '../flutter_fuelet_contracts/ios/Classes/frb.h' \
         --llvm-path /opt/homebrew/opt/llvm
-    flutter format .
+    dart format .
     cargo build --manifest-path=native/Cargo.toml
 
 # vim:expandtab:sw=4:ts=4

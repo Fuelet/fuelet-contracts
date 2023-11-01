@@ -15,7 +15,6 @@ dependencies:
   plugin_platform_interface: ^2.0.2
   fuelet_contracts: ^1.7.0
   js: ^0.6.5
-  hex: ^0.2.0
 dev_dependencies:
   flutter_lints: ^2.0.0
   ffi: ^2.0.1

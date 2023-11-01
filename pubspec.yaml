@@ -1,0 +1,7 @@
+name: fuelet_contracts
+
+environment:
+  sdk: '>=2.18.2 <4.0.0'
+
+dev_dependencies:
+  melos: ^3.1.0

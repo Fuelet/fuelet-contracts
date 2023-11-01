@@ -14,4 +14,3 @@ flutter_rust_bridge = "1.74.0"
 fuels = "0.39.0"
 fuels-accounts = "0.39.0" # must be compatible with the fuels version
 tokio = { version = "1.14.0", features = ["rt-multi-thread"] }
-hex = "0.4.3"
