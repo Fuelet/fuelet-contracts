@@ -5,6 +5,11 @@ repository: https://github.com/Fuelet/fuelet-contracts
 packages:
   - packages/**
 
+command:
+  version:
+    hooks:
+      preCommit: bash scripts/version.sh
+
 scripts:
   analyze:
     exec: flutter analyze .
