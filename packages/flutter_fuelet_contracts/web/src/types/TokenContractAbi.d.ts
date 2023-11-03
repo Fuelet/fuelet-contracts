@@ -4,9 +4,9 @@
 /* eslint-disable */
 
 /*
-  Fuels version: 0.38.0
-  Forc version: 0.35.5
-  Fuel-Core version: 0.17.3
+  Fuels version: 0.60.0
+  Forc version: 0.44.0
+  Fuel-Core version: 0.20.5
 */
 
 import type {
@@ -20,95 +20,51 @@ import type {
   InvokeFunction,
 } from 'fuels';
 
-import type { Enum } from "./common";
+import type { Option } from "./common";
 
-export type ErrorInput = Enum<{ AddressAlreadyMint: [], CannotReinitialize: [], MintIsClosed: [], NotOwner: [] }>;
-export type ErrorOutput = ErrorInput;
+export type AssetIdInput = { value: string };
+export type AssetIdOutput = AssetIdInput;
+export type BytesInput = { buf: RawBytesInput, len: BigNumberish };
+export type BytesOutput = { buf: RawBytesOutput, len: BN };
+export type RawBytesInput = { ptr: BigNumberish, cap: BigNumberish };
+export type RawBytesOutput = { ptr: BN, cap: BN };
+export type StringInput = { bytes: BytesInput };
+export type StringOutput = { bytes: BytesOutput };
 
-export type AddressInput = { value: string };
-export type AddressOutput = AddressInput;
-export type ContractIdInput = { value: string };
-export type ContractIdOutput = ContractIdInput;
-export type TokenInitializeConfigInput = { name: string, symbol: string, decimals: BigNumberish };
-export type TokenInitializeConfigOutput = { name: string, symbol: string, decimals: number };
+export type TokenContractAbiConfigurables = {
+  TOTAL_SUPPLY: BigNumberish;
+  DECIMALS: BigNumberish;
+};
 
 interface TokenContractAbiInterface extends Interface {
   functions: {
-    add_reward_admin: FunctionFragment;
-    already_minted: FunctionFragment;
-    burn_coins: FunctionFragment;
-    caller: FunctionFragment;
-    config: FunctionFragment;
-    delete_reward_admin: FunctionFragment;
-    get_balance: FunctionFragment;
-    get_mint_amount: FunctionFragment;
-    get_token_balance: FunctionFragment;
-    initialize: FunctionFragment;
-    is_reward_admin: FunctionFragment;
-    mint: FunctionFragment;
-    mint_and_transfer: FunctionFragment;
-    mint_coins: FunctionFragment;
-    set_mint_amount: FunctionFragment;
-    transfer_coins: FunctionFragment;
-    transfer_token_to_output: FunctionFragment;
+    decimals: FunctionFragment;
+    name: FunctionFragment;
+    symbol: FunctionFragment;
+    total_assets: FunctionFragment;
+    total_supply: FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: 'add_reward_admin', values: [AddressInput]): Uint8Array;
-  encodeFunctionData(functionFragment: 'already_minted', values: [AddressInput]): Uint8Array;
-  encodeFunctionData(functionFragment: 'burn_coins', values: [BigNumberish]): Uint8Array;
-  encodeFunctionData(functionFragment: 'caller', values: []): Uint8Array;
-  encodeFunctionData(functionFragment: 'config', values: []): Uint8Array;
-  encodeFunctionData(functionFragment: 'delete_reward_admin', values: [AddressInput]): Uint8Array;
-  encodeFunctionData(functionFragment: 'get_balance', values: []): Uint8Array;
-  encodeFunctionData(functionFragment: 'get_mint_amount', values: []): Uint8Array;
-  encodeFunctionData(functionFragment: 'get_token_balance', values: [ContractIdInput]): Uint8Array;
-  encodeFunctionData(functionFragment: 'initialize', values: [TokenInitializeConfigInput, BigNumberish, AddressInput]): Uint8Array;
-  encodeFunctionData(functionFragment: 'is_reward_admin', values: [AddressInput]): Uint8Array;
-  encodeFunctionData(functionFragment: 'mint', values: []): Uint8Array;
-  encodeFunctionData(functionFragment: 'mint_and_transfer', values: [BigNumberish, AddressInput]): Uint8Array;
-  encodeFunctionData(functionFragment: 'mint_coins', values: [BigNumberish]): Uint8Array;
-  encodeFunctionData(functionFragment: 'set_mint_amount', values: [BigNumberish]): Uint8Array;
-  encodeFunctionData(functionFragment: 'transfer_coins', values: [BigNumberish, AddressInput]): Uint8Array;
-  encodeFunctionData(functionFragment: 'transfer_token_to_output', values: [BigNumberish, ContractIdInput, AddressInput]): Uint8Array;
+  encodeFunctionData(functionFragment: 'decimals', values: [AssetIdInput]): Uint8Array;
+  encodeFunctionData(functionFragment: 'name', values: [AssetIdInput]): Uint8Array;
+  encodeFunctionData(functionFragment: 'symbol', values: [AssetIdInput]): Uint8Array;
+  encodeFunctionData(functionFragment: 'total_assets', values: []): Uint8Array;
+  encodeFunctionData(functionFragment: 'total_supply', values: [AssetIdInput]): Uint8Array;
 
-  decodeFunctionData(functionFragment: 'add_reward_admin', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'already_minted', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'burn_coins', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'caller', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'config', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'delete_reward_admin', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'get_balance', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'get_mint_amount', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'get_token_balance', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'initialize', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'is_reward_admin', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'mint', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'mint_and_transfer', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'mint_coins', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'set_mint_amount', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'transfer_coins', data: BytesLike): DecodedValue;
-  decodeFunctionData(functionFragment: 'transfer_token_to_output', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'decimals', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'name', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'symbol', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'total_assets', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'total_supply', data: BytesLike): DecodedValue;
 }
 
 export class TokenContractAbi extends Contract {
   interface: TokenContractAbiInterface;
   functions: {
-    add_reward_admin: InvokeFunction<[address: AddressInput], void>;
-    already_minted: InvokeFunction<[address: AddressInput], boolean>;
-    burn_coins: InvokeFunction<[burn_amount: BigNumberish], void>;
-    caller: InvokeFunction<[], AddressOutput>;
-    config: InvokeFunction<[], TokenInitializeConfigOutput>;
-    delete_reward_admin: InvokeFunction<[address: AddressInput], void>;
-    get_balance: InvokeFunction<[], BN>;
-    get_mint_amount: InvokeFunction<[], BN>;
-    get_token_balance: InvokeFunction<[asset_id: ContractIdInput], BN>;
-    initialize: InvokeFunction<[config: TokenInitializeConfigInput, mint_amount: BigNumberish, owner: AddressInput], void>;
-    is_reward_admin: InvokeFunction<[address: AddressInput], boolean>;
-    mint: InvokeFunction<[], void>;
-    mint_and_transfer: InvokeFunction<[amount: BigNumberish, recipient: AddressInput], void>;
-    mint_coins: InvokeFunction<[mint_amount: BigNumberish], void>;
-    set_mint_amount: InvokeFunction<[mint_amount: BigNumberish], void>;
-    transfer_coins: InvokeFunction<[coins: BigNumberish, address: AddressInput], void>;
-    transfer_token_to_output: InvokeFunction<[coins: BigNumberish, asset_id: ContractIdInput, address: AddressInput], void>;
+    decimals: InvokeFunction<[asset: AssetIdInput], Option<number>>;
+    name: InvokeFunction<[asset: AssetIdInput], Option<StringOutput>>;
+    symbol: InvokeFunction<[asset: AssetIdInput], Option<StringOutput>>;
+    total_assets: InvokeFunction<[], BN>;
+    total_supply: InvokeFunction<[asset: AssetIdInput], Option<BN>>;
   };
 }

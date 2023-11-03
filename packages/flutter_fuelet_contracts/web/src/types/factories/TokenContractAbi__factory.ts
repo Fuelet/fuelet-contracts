@@ -4,13 +4,13 @@
 /* eslint-disable */
 
 /*
-  Fuels version: 0.38.0
-  Forc version: 0.35.5
-  Fuel-Core version: 0.17.3
+  Fuels version: 0.60.0
+  Forc version: 0.44.0
+  Fuel-Core version: 0.20.5
 */
 
-import { Interface, Contract } from "fuels";
-import type { Provider, Account, AbstractAddress } from "fuels";
+import { Interface, Contract, ContractFactory } from "fuels";
+import type { Provider, Account, AbstractAddress, BytesLike, DeployContractOptions } from "fuels";
 import type { TokenContractAbi, TokenContractAbiInterface } from "../TokenContractAbi";
 
 const _abi = {
@@ -29,56 +29,59 @@ const _abi = {
     },
     {
       "typeId": 2,
-      "type": "bool",
+      "type": "enum Option",
+      "components": [
+        {
+          "name": "None",
+          "type": 0,
+          "typeArguments": null
+        },
+        {
+          "name": "Some",
+          "type": 3,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": [
+        3
+      ]
+    },
+    {
+      "typeId": 3,
+      "type": "generic T",
       "components": null,
       "typeParameters": null
     },
     {
-      "typeId": 3,
-      "type": "enum Error",
+      "typeId": 4,
+      "type": "raw untyped ptr",
+      "components": null,
+      "typeParameters": null
+    },
+    {
+      "typeId": 5,
+      "type": "struct AssetId",
       "components": [
         {
-          "name": "AddressAlreadyMint",
-          "type": 0,
-          "typeArguments": null
-        },
-        {
-          "name": "CannotReinitialize",
-          "type": 0,
-          "typeArguments": null
-        },
-        {
-          "name": "MintIsClosed",
-          "type": 0,
-          "typeArguments": null
-        },
-        {
-          "name": "NotOwner",
-          "type": 0,
+          "name": "value",
+          "type": 1,
           "typeArguments": null
         }
       ],
       "typeParameters": null
     },
     {
-      "typeId": 4,
-      "type": "str[32]",
-      "components": null,
-      "typeParameters": null
-    },
-    {
-      "typeId": 5,
-      "type": "str[8]",
-      "components": null,
-      "typeParameters": null
-    },
-    {
       "typeId": 6,
-      "type": "struct Address",
+      "type": "struct Bytes",
       "components": [
         {
-          "name": "value",
-          "type": 1,
+          "name": "buf",
+          "type": 7,
+          "typeArguments": null
+        },
+        {
+          "name": "len",
+          "type": 9,
           "typeArguments": null
         }
       ],
@@ -86,11 +89,16 @@ const _abi = {
     },
     {
       "typeId": 7,
-      "type": "struct ContractId",
+      "type": "struct RawBytes",
       "components": [
         {
-          "name": "value",
-          "type": 1,
+          "name": "ptr",
+          "type": 4,
+          "typeArguments": null
+        },
+        {
+          "name": "cap",
+          "type": 9,
           "typeArguments": null
         }
       ],
@@ -98,21 +106,11 @@ const _abi = {
     },
     {
       "typeId": 8,
-      "type": "struct TokenInitializeConfig",
+      "type": "struct String",
       "components": [
         {
-          "name": "name",
-          "type": 4,
-          "typeArguments": null
-        },
-        {
-          "name": "symbol",
-          "type": 5,
-          "typeArguments": null
-        },
-        {
-          "name": "decimals",
-          "type": 10,
+          "name": "bytes",
+          "type": 6,
           "typeArguments": null
         }
       ],
@@ -135,40 +133,22 @@ const _abi = {
     {
       "inputs": [
         {
-          "name": "address",
-          "type": 6,
+          "name": "asset",
+          "type": 5,
           "typeArguments": null
         }
       ],
-      "name": "add_reward_admin",
-      "output": {
-        "name": "",
-        "type": 0,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read",
-            "write"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [
-        {
-          "name": "address",
-          "type": 6,
-          "typeArguments": null
-        }
-      ],
-      "name": "already_minted",
+      "name": "decimals",
       "output": {
         "name": "",
         "type": 2,
-        "typeArguments": null
+        "typeArguments": [
+          {
+            "name": "",
+            "type": 10,
+            "typeArguments": null
+          }
+        ]
       },
       "attributes": [
         {
@@ -182,167 +162,51 @@ const _abi = {
     {
       "inputs": [
         {
-          "name": "burn_amount",
-          "type": 9,
+          "name": "asset",
+          "type": 5,
           "typeArguments": null
         }
       ],
-      "name": "burn_coins",
-      "output": {
-        "name": "",
-        "type": 0,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [],
-      "name": "caller",
-      "output": {
-        "name": "",
-        "type": 6,
-        "typeArguments": null
-      },
-      "attributes": null
-    },
-    {
-      "inputs": [],
-      "name": "config",
-      "output": {
-        "name": "",
-        "type": 8,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [
-        {
-          "name": "address",
-          "type": 6,
-          "typeArguments": null
-        }
-      ],
-      "name": "delete_reward_admin",
-      "output": {
-        "name": "",
-        "type": 0,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read",
-            "write"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [],
-      "name": "get_balance",
-      "output": {
-        "name": "",
-        "type": 9,
-        "typeArguments": null
-      },
-      "attributes": null
-    },
-    {
-      "inputs": [],
-      "name": "get_mint_amount",
-      "output": {
-        "name": "",
-        "type": 9,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [
-        {
-          "name": "asset_id",
-          "type": 7,
-          "typeArguments": null
-        }
-      ],
-      "name": "get_token_balance",
-      "output": {
-        "name": "",
-        "type": 9,
-        "typeArguments": null
-      },
-      "attributes": null
-    },
-    {
-      "inputs": [
-        {
-          "name": "config",
-          "type": 8,
-          "typeArguments": null
-        },
-        {
-          "name": "mint_amount",
-          "type": 9,
-          "typeArguments": null
-        },
-        {
-          "name": "owner",
-          "type": 6,
-          "typeArguments": null
-        }
-      ],
-      "name": "initialize",
-      "output": {
-        "name": "",
-        "type": 0,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read",
-            "write"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [
-        {
-          "name": "address",
-          "type": 6,
-          "typeArguments": null
-        }
-      ],
-      "name": "is_reward_admin",
+      "name": "name",
       "output": {
         "name": "",
         "type": 2,
-        "typeArguments": null
+        "typeArguments": [
+          {
+            "name": "",
+            "type": 8,
+            "typeArguments": null
+          }
+        ]
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "asset",
+          "type": 5,
+          "typeArguments": null
+        }
+      ],
+      "name": "symbol",
+      "output": {
+        "name": "",
+        "type": 2,
+        "typeArguments": [
+          {
+            "name": "",
+            "type": 8,
+            "typeArguments": null
+          }
+        ]
       },
       "attributes": [
         {
@@ -355,39 +219,10 @@ const _abi = {
     },
     {
       "inputs": [],
-      "name": "mint",
+      "name": "total_assets",
       "output": {
         "name": "",
-        "type": 0,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read",
-            "write"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [
-        {
-          "name": "amount",
-          "type": 9,
-          "typeArguments": null
-        },
-        {
-          "name": "recipient",
-          "type": 6,
-          "typeArguments": null
-        }
-      ],
-      "name": "mint_and_transfer",
-      "output": {
-        "name": "",
-        "type": 0,
+        "type": 9,
         "typeArguments": null
       },
       "attributes": [
@@ -402,101 +237,22 @@ const _abi = {
     {
       "inputs": [
         {
-          "name": "mint_amount",
-          "type": 9,
+          "name": "asset",
+          "type": 5,
           "typeArguments": null
         }
       ],
-      "name": "mint_coins",
+      "name": "total_supply",
       "output": {
         "name": "",
-        "type": 0,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [
-        {
-          "name": "mint_amount",
-          "type": 9,
-          "typeArguments": null
-        }
-      ],
-      "name": "set_mint_amount",
-      "output": {
-        "name": "",
-        "type": 0,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read",
-            "write"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [
-        {
-          "name": "coins",
-          "type": 9,
-          "typeArguments": null
-        },
-        {
-          "name": "address",
-          "type": 6,
-          "typeArguments": null
-        }
-      ],
-      "name": "transfer_coins",
-      "output": {
-        "name": "",
-        "type": 0,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [
-        {
-          "name": "coins",
-          "type": 9,
-          "typeArguments": null
-        },
-        {
-          "name": "asset_id",
-          "type": 7,
-          "typeArguments": null
-        },
-        {
-          "name": "address",
-          "type": 6,
-          "typeArguments": null
-        }
-      ],
-      "name": "transfer_token_to_output",
-      "output": {
-        "name": "",
-        "type": 0,
-        "typeArguments": null
+        "type": 2,
+        "typeArguments": [
+          {
+            "name": "",
+            "type": 9,
+            "typeArguments": null
+          }
+        ]
       },
       "attributes": [
         {
@@ -508,106 +264,28 @@ const _abi = {
       ]
     }
   ],
-  "loggedTypes": [
-    {
-      "logId": 0,
-      "loggedType": {
-        "name": "",
-        "type": 3,
-        "typeArguments": []
-      }
-    },
-    {
-      "logId": 1,
-      "loggedType": {
-        "name": "",
-        "type": 3,
-        "typeArguments": []
-      }
-    },
-    {
-      "logId": 2,
-      "loggedType": {
-        "name": "",
-        "type": 3,
-        "typeArguments": []
-      }
-    },
-    {
-      "logId": 3,
-      "loggedType": {
-        "name": "",
-        "type": 3,
-        "typeArguments": []
-      }
-    },
-    {
-      "logId": 4,
-      "loggedType": {
-        "name": "",
-        "type": 3,
-        "typeArguments": []
-      }
-    },
-    {
-      "logId": 5,
-      "loggedType": {
-        "name": "",
-        "type": 3,
-        "typeArguments": []
-      }
-    },
-    {
-      "logId": 6,
-      "loggedType": {
-        "name": "",
-        "type": 3,
-        "typeArguments": []
-      }
-    },
-    {
-      "logId": 7,
-      "loggedType": {
-        "name": "",
-        "type": 3,
-        "typeArguments": []
-      }
-    },
-    {
-      "logId": 8,
-      "loggedType": {
-        "name": "",
-        "type": 3,
-        "typeArguments": []
-      }
-    },
-    {
-      "logId": 9,
-      "loggedType": {
-        "name": "",
-        "type": 3,
-        "typeArguments": []
-      }
-    },
-    {
-      "logId": 10,
-      "loggedType": {
-        "name": "",
-        "type": 3,
-        "typeArguments": []
-      }
-    },
-    {
-      "logId": 11,
-      "loggedType": {
-        "name": "",
-        "type": 3,
-        "typeArguments": []
-      }
-    }
-  ],
+  "loggedTypes": [],
   "messagesTypes": [],
-  "configurables": []
+  "configurables": [
+    {
+      "name": "TOTAL_SUPPLY",
+      "configurableType": {
+        "name": "",
+        "type": 9,
+        "typeArguments": null
+      },
+      "offset": 5012
+    },
+    {
+      "name": "DECIMALS",
+      "configurableType": {
+        "name": "",
+        "type": 10,
+        "typeArguments": null
+      },
+      "offset": 4964
+    }
+  ]
 }
 
 export class TokenContractAbi__factory {
@@ -620,5 +298,14 @@ export class TokenContractAbi__factory {
     accountOrProvider: Account | Provider
   ): TokenContractAbi {
     return new Contract(id, _abi, accountOrProvider) as unknown as TokenContractAbi
+  }
+  static async deployContract(
+    bytecode: BytesLike,
+    wallet: Account,
+    options: DeployContractOptions = {}
+  ): Promise<TokenContractAbi> {
+    const factory = new ContractFactory(bytecode, _abi, wallet);
+    const contract = await factory.deployContract(options);
+    return contract as unknown as TokenContractAbi;
   }
 }
