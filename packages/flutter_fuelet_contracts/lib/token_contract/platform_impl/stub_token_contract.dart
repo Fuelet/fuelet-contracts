@@ -1,12 +1,30 @@
-import 'package:flutter_fuelet_contracts/token_contract/token_initialize_config.dart';
-
 import 'base_token_contract.dart';
 
 class TokenContractImpl extends BaseTokenContract {
   TokenContractImpl(String nodeUrl);
 
   @override
-  Future<TokenInitializeConfig> config(String contractId) {
+  Future<int> decimals(String contractId, String assetId) {
+    throw Exception('Stub implementation');
+  }
+
+  @override
+  Future<String> name(String contractId, String assetId) {
+    throw Exception('Stub implementation');
+  }
+
+  @override
+  Future<String> symbol(String contractId, String assetId) {
+    throw Exception('Stub implementation');
+  }
+
+  @override
+  Future<int> totalAssets(String contractId) {
+    throw Exception('Stub implementation');
+  }
+
+  @override
+  Future<int> totalSupply(String contractId, String assetId) {
     throw Exception('Stub implementation');
   }
 }

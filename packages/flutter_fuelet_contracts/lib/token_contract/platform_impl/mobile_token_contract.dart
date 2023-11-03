@@ -1,4 +1,3 @@
-import 'package:flutter_fuelet_contracts/token_contract/token_initialize_config.dart';
 import 'package:fuelet_contracts/fuelet_contracts.dart';
 
 import '../../ffi/mobile_wrapper.dart';
@@ -13,8 +12,30 @@ class TokenContractImpl extends BaseTokenContract {
   }
 
   @override
-  Future<TokenInitializeConfig> config(String contractId) async {
-    final config = await _tokenContract.config(contractId: contractId);
-    return TokenInitializeConfig(config.name, config.symbol, config.decimals);
+  Future<int> decimals(String contractId, String assetId) async {
+    return await _tokenContract.decimals(
+        contractId: contractId, assetId: assetId);
+  }
+
+  @override
+  Future<String> name(String contractId, String assetId) async {
+    return await _tokenContract.name(contractId: contractId, assetId: assetId);
+  }
+
+  @override
+  Future<String> symbol(String contractId, String assetId) async {
+    return await _tokenContract.symbol(
+        contractId: contractId, assetId: assetId);
+  }
+
+  @override
+  Future<int> totalAssets(String contractId) async {
+    return await _tokenContract.totalAssets(contractId: contractId);
+  }
+
+  @override
+  Future<int> totalSupply(String contractId, String assetId) async {
+    return await _tokenContract.totalSupply(
+        contractId: contractId, assetId: assetId);
   }
 }
