@@ -32,9 +32,29 @@ intptr_t init_frb_dart_api_dl(void *obj);
 
 void wire_new__static_method__TokenContract(int64_t port_, struct wire_uint_8_list *node_url);
 
-void wire_config__method__TokenContract(int64_t port_,
+void wire_total_assets__method__TokenContract(int64_t port_,
+                                              struct wire_TokenContract *that,
+                                              struct wire_uint_8_list *contract_id);
+
+void wire_total_supply__method__TokenContract(int64_t port_,
+                                              struct wire_TokenContract *that,
+                                              struct wire_uint_8_list *contract_id,
+                                              struct wire_uint_8_list *asset_id);
+
+void wire_name__method__TokenContract(int64_t port_,
+                                      struct wire_TokenContract *that,
+                                      struct wire_uint_8_list *contract_id,
+                                      struct wire_uint_8_list *asset_id);
+
+void wire_symbol__method__TokenContract(int64_t port_,
                                         struct wire_TokenContract *that,
-                                        struct wire_uint_8_list *contract_id);
+                                        struct wire_uint_8_list *contract_id,
+                                        struct wire_uint_8_list *asset_id);
+
+void wire_decimals__method__TokenContract(int64_t port_,
+                                          struct wire_TokenContract *that,
+                                          struct wire_uint_8_list *contract_id,
+                                          struct wire_uint_8_list *asset_id);
 
 struct wire_TokenContract *new_box_autoadd_token_contract_0(void);
 
@@ -45,7 +65,11 @@ void free_WireSyncReturn(WireSyncReturn ptr);
 static int64_t dummy_method_to_enforce_bundling(void) {
     int64_t dummy_var = 0;
     dummy_var ^= ((int64_t) (void*) wire_new__static_method__TokenContract);
-    dummy_var ^= ((int64_t) (void*) wire_config__method__TokenContract);
+    dummy_var ^= ((int64_t) (void*) wire_total_assets__method__TokenContract);
+    dummy_var ^= ((int64_t) (void*) wire_total_supply__method__TokenContract);
+    dummy_var ^= ((int64_t) (void*) wire_name__method__TokenContract);
+    dummy_var ^= ((int64_t) (void*) wire_symbol__method__TokenContract);
+    dummy_var ^= ((int64_t) (void*) wire_decimals__method__TokenContract);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_token_contract_0);
     dummy_var ^= ((int64_t) (void*) new_uint_8_list_0);
     dummy_var ^= ((int64_t) (void*) free_WireSyncReturn);

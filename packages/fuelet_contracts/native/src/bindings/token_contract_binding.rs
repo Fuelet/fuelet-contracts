@@ -1,5 +1,4 @@
-use fuels::prelude::{abigen, Bech32ContractId};
-use fuels_accounts::WalletUnlocked;
+use fuels::prelude::{abigen, Bech32ContractId, WalletUnlocked};
 
 abigen!(Contract(
     name = "TokenContractAbi",

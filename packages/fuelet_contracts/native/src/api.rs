@@ -1,10 +1,13 @@
+use std::fmt::Debug;
 use std::str::FromStr;
 
 use fuels::accounts::fuel_crypto::SecretKey;
-use fuels::prelude::{Bech32ContractId, ContractId, Provider, WalletUnlocked};
+use fuels::core::traits::{Parameterize, Tokenizable};
+use fuels::prelude::{Bech32ContractId, ContractId, Provider, TxParameters, WalletUnlocked};
+use fuels::programs::contract::ContractCallHandler;
+use fuels::types::AssetId;
 
 pub use crate::bindings::token_contract_binding;
-pub use crate::model::token_initialize_config::TokenInitializeConfigModel;
 
 // DO NOT USE THIS PRIVATE KEY
 // It's present here only for the purpose of reading data from blockchain, cause currently you
@@ -15,31 +18,74 @@ pub struct TokenContract {
     pub node_url: String,
 }
 
+fn convert_asset_id(asset_id_str: &String) -> AssetId {
+    AssetId::from_str(asset_id_str.as_str()).unwrap()
+}
+
 impl TokenContract {
     pub fn new(node_url: String) -> TokenContract {
         TokenContract { node_url }
     }
 
     #[tokio::main]
-    pub async fn config(
+    pub async fn total_assets(
         &self,
         contract_id: String,
-    ) -> TokenInitializeConfigModel {
+    ) -> u64 {
+        self.call_contract(contract_id, |m| m.total_assets()).await
+    }
+
+    #[tokio::main]
+    pub async fn total_supply(
+        &self,
+        contract_id: String,
+        asset_id: String,
+    ) -> Option<u64> {
+        self.call_contract(contract_id, |m| m.total_supply(convert_asset_id(&asset_id))).await
+    }
+
+    #[tokio::main]
+    pub async fn name(
+        &self,
+        contract_id: String,
+        asset_id: String,
+    ) -> Option<String> {
+        self.call_contract(contract_id, |m| m.name(convert_asset_id(&asset_id))).await
+    }
+
+    #[tokio::main]
+    pub async fn symbol(
+        &self,
+        contract_id: String,
+        asset_id: String,
+    ) -> Option<String> {
+        self.call_contract(contract_id, |m| m.symbol(convert_asset_id(&asset_id))).await
+    }
+
+    #[tokio::main]
+    pub async fn decimals(
+        &self,
+        contract_id: String,
+        asset_id: String,
+    ) -> Option<u8> {
+        self.call_contract(contract_id, |m| m.decimals(convert_asset_id(&asset_id))).await
+    }
+
+    async fn call_contract<F, D>(&self, contract_id_str: String, method: F) -> D where
+        D: Tokenizable + Parameterize + Debug,
+        F: Fn(token_contract_binding::TokenContractAbiMethods<WalletUnlocked>) -> ContractCallHandler<WalletUnlocked, D> {
         let read_wallet = self.create_read_wallet().await;
-        let address: ContractId = ContractId::from_str(contract_id.as_str()).unwrap();
-        let bech32_contract_id = Bech32ContractId::from(address);
+        let contract_id: ContractId = ContractId::from_str(contract_id_str.as_str()).unwrap();
+        let bech32_contract_id = Bech32ContractId::from(contract_id);
         let contract_instance = token_contract_binding::create_token_contract_instance(bech32_contract_id, read_wallet);
-        let response = contract_instance
-            .methods()
-            .config()
-            .simulate()
+        let tx_params = TxParameters::new(Some(1), Some(10_000_000), 0);
+        let methods = contract_instance.methods();
+        let response = method(methods)
+            .tx_params(tx_params)
+            .call()
             .await
             .unwrap();
-        TokenInitializeConfigModel {
-            name: response.value.name.into(),
-            symbol: response.value.symbol.into(),
-            decimals: response.value.decimals.into(),
-        }
+        response.value
     }
 
     async fn create_read_wallet(&self) -> WalletUnlocked {
