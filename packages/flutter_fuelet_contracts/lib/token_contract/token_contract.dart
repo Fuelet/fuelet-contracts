@@ -13,19 +13,19 @@ class TokenContract {
     return _tokenContract.totalAssets(contractId);
   }
 
-  Future<int> totalSupply(String contractId, String assetId) {
+  Future<int?> totalSupply(String contractId, String assetId) {
     return _tokenContract.totalSupply(contractId, assetId);
   }
 
-  Future<String> name(String contractId, String assetId) {
+  Future<String?> name(String contractId, String assetId) {
     return _tokenContract.name(contractId, assetId);
   }
 
-  Future<String> symbol(String contractId, String assetId) {
+  Future<String?> symbol(String contractId, String assetId) {
     return _tokenContract.symbol(contractId, assetId);
   }
 
-  Future<int> decimals(String contractId, String assetId) {
+  Future<int?> decimals(String contractId, String assetId) {
     return _tokenContract.decimals(contractId, assetId);
   }
 }

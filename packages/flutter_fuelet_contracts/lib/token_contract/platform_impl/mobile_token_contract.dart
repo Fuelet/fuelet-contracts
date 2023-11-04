@@ -12,18 +12,18 @@ class TokenContractImpl extends BaseTokenContract {
   }
 
   @override
-  Future<int> decimals(String contractId, String assetId) async {
+  Future<int?> decimals(String contractId, String assetId) async {
     return await _tokenContract.decimals(
         contractId: contractId, assetId: assetId);
   }
 
   @override
-  Future<String> name(String contractId, String assetId) async {
+  Future<String?> name(String contractId, String assetId) async {
     return await _tokenContract.name(contractId: contractId, assetId: assetId);
   }
 
   @override
-  Future<String> symbol(String contractId, String assetId) async {
+  Future<String?> symbol(String contractId, String assetId) async {
     return await _tokenContract.symbol(
         contractId: contractId, assetId: assetId);
   }
@@ -34,7 +34,7 @@ class TokenContractImpl extends BaseTokenContract {
   }
 
   @override
-  Future<int> totalSupply(String contractId, String assetId) async {
+  Future<int?> totalSupply(String contractId, String assetId) async {
     return await _tokenContract.totalSupply(
         contractId: contractId, assetId: assetId);
   }
