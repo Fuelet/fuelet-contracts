@@ -1,3 +1,8 @@
+## 0.0.10
+
+ - **FEAT**: beta4 token contract ([#5](https://github.com/Fuelet/fuelet-contracts/issues/5)). ([aaae3f72](https://github.com/Fuelet/fuelet-contracts/commit/aaae3f7298d50d089fcd7fac2f1c01ba94a826b6))
+ - **FEAT**: get rid of the send coins predicate. ([22db868a](https://github.com/Fuelet/fuelet-contracts/commit/22db868af64fad9b29847d89ce07ec306ca7925e))
+
 ## 0.0.9+1
 
  - Update a dependency to the latest release.
