@@ -10,22 +10,42 @@ class TokenContract {
   }
 
   Future<int> totalAssets(String contractId) {
-    return _tokenContract.totalAssets(contractId);
+    try {
+      return _tokenContract.totalAssets(contractId);
+    } catch (_) {
+      return Future.value(0);
+    }
   }
 
   Future<int?> totalSupply(String contractId, String assetId) {
-    return _tokenContract.totalSupply(contractId, assetId);
+    try {
+      return _tokenContract.totalSupply(contractId, assetId);
+    } catch (_) {
+      return Future.value(null);
+    }
   }
 
   Future<String?> name(String contractId, String assetId) {
-    return _tokenContract.name(contractId, assetId);
+    try {
+      return _tokenContract.name(contractId, assetId);
+    } catch (_) {
+      return Future.value(null);
+    }
   }
 
   Future<String?> symbol(String contractId, String assetId) {
-    return _tokenContract.symbol(contractId, assetId);
+    try {
+      return _tokenContract.symbol(contractId, assetId);
+    } catch (_) {
+      return Future.value(null);
+    }
   }
 
   Future<int?> decimals(String contractId, String assetId) {
-    return _tokenContract.decimals(contractId, assetId);
+    try {
+      return _tokenContract.decimals(contractId, assetId);
+    } catch (_) {
+      return Future.value(null);
+    }
   }
 }
