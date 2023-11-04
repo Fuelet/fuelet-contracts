@@ -43,7 +43,8 @@ class TokenContract {
   ): Promise<string | undefined> {
     const contract = await this.create_contract(nodeUrl, contractId);
     const {value} = await contract.functions.name({value: assetId}).simulate();
-    return value?.toString();
+    // TODO: convert value to string once it's known how to do
+    return value ? "Unknown" : undefined;
   }
 
   async symbol(
@@ -53,7 +54,8 @@ class TokenContract {
   ): Promise<string | undefined> {
     const contract = await this.create_contract(nodeUrl, contractId);
     const {value} = await contract.functions.symbol({value: assetId}).simulate();
-    return value?.toString();
+    // TODO: convert value to string once it's known how to do
+    return value ? "UNKN" : undefined;
   }
 
   async decimals(
