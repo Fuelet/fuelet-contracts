@@ -9,43 +9,43 @@ class TokenContract {
     _tokenContract = TokenContractImpl(nodeUrl);
   }
 
-  Future<int> totalAssets(String contractId) {
+  Future<int> totalAssets(String contractId) async {
     try {
-      return _tokenContract.totalAssets(contractId);
+      return await _tokenContract.totalAssets(contractId);
     } catch (_) {
-      return Future.value(0);
+      return 0;
     }
   }
 
-  Future<int?> totalSupply(String contractId, String assetId) {
+  Future<int?> totalSupply(String contractId, String assetId) async {
     try {
-      return _tokenContract.totalSupply(contractId, assetId);
+      return await _tokenContract.totalSupply(contractId, assetId);
     } catch (_) {
-      return Future.value(null);
+      return null;
     }
   }
 
-  Future<String?> name(String contractId, String assetId) {
+  Future<String?> name(String contractId, String assetId) async {
     try {
-      return _tokenContract.name(contractId, assetId);
+      return await _tokenContract.name(contractId, assetId);
     } catch (_) {
-      return Future.value(null);
+      return null;
     }
   }
 
-  Future<String?> symbol(String contractId, String assetId) {
+  Future<String?> symbol(String contractId, String assetId) async {
     try {
-      return _tokenContract.symbol(contractId, assetId);
+      return await _tokenContract.symbol(contractId, assetId);
     } catch (_) {
-      return Future.value(null);
+      return null;
     }
   }
 
-  Future<int?> decimals(String contractId, String assetId) {
+  Future<int?> decimals(String contractId, String assetId) async {
     try {
-      return _tokenContract.decimals(contractId, assetId);
+      return await _tokenContract.decimals(contractId, assetId);
     } catch (_) {
-      return Future.value(null);
+      return null;
     }
   }
 }
