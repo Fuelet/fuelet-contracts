@@ -16,10 +16,42 @@ abstract class FueletContracts {
 
   FlutterRustBridgeTaskConstMeta get kNewStaticMethodTokenContractConstMeta;
 
-  Future<TokenInitializeConfigModel> configMethodTokenContract(
+  Future<int> totalAssetsMethodTokenContract(
       {required TokenContract that, required String contractId, dynamic hint});
 
-  FlutterRustBridgeTaskConstMeta get kConfigMethodTokenContractConstMeta;
+  FlutterRustBridgeTaskConstMeta get kTotalAssetsMethodTokenContractConstMeta;
+
+  Future<int?> totalSupplyMethodTokenContract(
+      {required TokenContract that,
+      required String contractId,
+      required String assetId,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kTotalSupplyMethodTokenContractConstMeta;
+
+  Future<String?> nameMethodTokenContract(
+      {required TokenContract that,
+      required String contractId,
+      required String assetId,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kNameMethodTokenContractConstMeta;
+
+  Future<String?> symbolMethodTokenContract(
+      {required TokenContract that,
+      required String contractId,
+      required String assetId,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSymbolMethodTokenContractConstMeta;
+
+  Future<int?> decimalsMethodTokenContract(
+      {required TokenContract that,
+      required String contractId,
+      required String assetId,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kDecimalsMethodTokenContractConstMeta;
 }
 
 class TokenContract {
@@ -37,24 +69,51 @@ class TokenContract {
           dynamic hint}) =>
       bridge.newStaticMethodTokenContract(nodeUrl: nodeUrl, hint: hint);
 
-  Future<TokenInitializeConfigModel> config(
-          {required String contractId, dynamic hint}) =>
-      bridge.configMethodTokenContract(
+  Future<int> totalAssets({required String contractId, dynamic hint}) =>
+      bridge.totalAssetsMethodTokenContract(
         that: this,
         contractId: contractId,
       );
-}
 
-class TokenInitializeConfigModel {
-  final String name;
-  final String symbol;
-  final int decimals;
+  Future<int?> totalSupply(
+          {required String contractId,
+          required String assetId,
+          dynamic hint}) =>
+      bridge.totalSupplyMethodTokenContract(
+        that: this,
+        contractId: contractId,
+        assetId: assetId,
+      );
 
-  const TokenInitializeConfigModel({
-    required this.name,
-    required this.symbol,
-    required this.decimals,
-  });
+  Future<String?> name(
+          {required String contractId,
+          required String assetId,
+          dynamic hint}) =>
+      bridge.nameMethodTokenContract(
+        that: this,
+        contractId: contractId,
+        assetId: assetId,
+      );
+
+  Future<String?> symbol(
+          {required String contractId,
+          required String assetId,
+          dynamic hint}) =>
+      bridge.symbolMethodTokenContract(
+        that: this,
+        contractId: contractId,
+        assetId: assetId,
+      );
+
+  Future<int?> decimals(
+          {required String contractId,
+          required String assetId,
+          dynamic hint}) =>
+      bridge.decimalsMethodTokenContract(
+        that: this,
+        contractId: contractId,
+        assetId: assetId,
+      );
 }
 
 class FueletContractsImpl implements FueletContracts {
@@ -85,24 +144,120 @@ class FueletContractsImpl implements FueletContracts {
         argNames: ["nodeUrl"],
       );
 
-  Future<TokenInitializeConfigModel> configMethodTokenContract(
+  Future<int> totalAssetsMethodTokenContract(
       {required TokenContract that, required String contractId, dynamic hint}) {
     var arg0 = _platform.api2wire_box_autoadd_token_contract(that);
     var arg1 = _platform.api2wire_String(contractId);
     return _platform.executeNormal(FlutterRustBridgeTask(
-      callFfi: (port_) =>
-          _platform.inner.wire_config__method__TokenContract(port_, arg0, arg1),
-      parseSuccessData: _wire2api_token_initialize_config_model,
-      constMeta: kConfigMethodTokenContractConstMeta,
+      callFfi: (port_) => _platform.inner
+          .wire_total_assets__method__TokenContract(port_, arg0, arg1),
+      parseSuccessData: _wire2api_u64,
+      constMeta: kTotalAssetsMethodTokenContractConstMeta,
       argValues: [that, contractId],
       hint: hint,
     ));
   }
 
-  FlutterRustBridgeTaskConstMeta get kConfigMethodTokenContractConstMeta =>
+  FlutterRustBridgeTaskConstMeta get kTotalAssetsMethodTokenContractConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
-        debugName: "config__method__TokenContract",
+        debugName: "total_assets__method__TokenContract",
         argNames: ["that", "contractId"],
+      );
+
+  Future<int?> totalSupplyMethodTokenContract(
+      {required TokenContract that,
+      required String contractId,
+      required String assetId,
+      dynamic hint}) {
+    var arg0 = _platform.api2wire_box_autoadd_token_contract(that);
+    var arg1 = _platform.api2wire_String(contractId);
+    var arg2 = _platform.api2wire_String(assetId);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner
+          .wire_total_supply__method__TokenContract(port_, arg0, arg1, arg2),
+      parseSuccessData: _wire2api_opt_box_autoadd_u64,
+      constMeta: kTotalSupplyMethodTokenContractConstMeta,
+      argValues: [that, contractId, assetId],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kTotalSupplyMethodTokenContractConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "total_supply__method__TokenContract",
+        argNames: ["that", "contractId", "assetId"],
+      );
+
+  Future<String?> nameMethodTokenContract(
+      {required TokenContract that,
+      required String contractId,
+      required String assetId,
+      dynamic hint}) {
+    var arg0 = _platform.api2wire_box_autoadd_token_contract(that);
+    var arg1 = _platform.api2wire_String(contractId);
+    var arg2 = _platform.api2wire_String(assetId);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner
+          .wire_name__method__TokenContract(port_, arg0, arg1, arg2),
+      parseSuccessData: _wire2api_opt_String,
+      constMeta: kNameMethodTokenContractConstMeta,
+      argValues: [that, contractId, assetId],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kNameMethodTokenContractConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "name__method__TokenContract",
+        argNames: ["that", "contractId", "assetId"],
+      );
+
+  Future<String?> symbolMethodTokenContract(
+      {required TokenContract that,
+      required String contractId,
+      required String assetId,
+      dynamic hint}) {
+    var arg0 = _platform.api2wire_box_autoadd_token_contract(that);
+    var arg1 = _platform.api2wire_String(contractId);
+    var arg2 = _platform.api2wire_String(assetId);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner
+          .wire_symbol__method__TokenContract(port_, arg0, arg1, arg2),
+      parseSuccessData: _wire2api_opt_String,
+      constMeta: kSymbolMethodTokenContractConstMeta,
+      argValues: [that, contractId, assetId],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kSymbolMethodTokenContractConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "symbol__method__TokenContract",
+        argNames: ["that", "contractId", "assetId"],
+      );
+
+  Future<int?> decimalsMethodTokenContract(
+      {required TokenContract that,
+      required String contractId,
+      required String assetId,
+      dynamic hint}) {
+    var arg0 = _platform.api2wire_box_autoadd_token_contract(that);
+    var arg1 = _platform.api2wire_String(contractId);
+    var arg2 = _platform.api2wire_String(assetId);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner
+          .wire_decimals__method__TokenContract(port_, arg0, arg1, arg2),
+      parseSuccessData: _wire2api_opt_box_autoadd_u8,
+      constMeta: kDecimalsMethodTokenContractConstMeta,
+      argValues: [that, contractId, assetId],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kDecimalsMethodTokenContractConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "decimals__method__TokenContract",
+        argNames: ["that", "contractId", "assetId"],
       );
 
   void dispose() {
@@ -112,6 +267,26 @@ class FueletContractsImpl implements FueletContracts {
 
   String _wire2api_String(dynamic raw) {
     return raw as String;
+  }
+
+  int _wire2api_box_autoadd_u64(dynamic raw) {
+    return _wire2api_u64(raw);
+  }
+
+  int _wire2api_box_autoadd_u8(dynamic raw) {
+    return raw as int;
+  }
+
+  String? _wire2api_opt_String(dynamic raw) {
+    return raw == null ? null : _wire2api_String(raw);
+  }
+
+  int? _wire2api_opt_box_autoadd_u64(dynamic raw) {
+    return raw == null ? null : _wire2api_box_autoadd_u64(raw);
+  }
+
+  int? _wire2api_opt_box_autoadd_u8(dynamic raw) {
+    return raw == null ? null : _wire2api_box_autoadd_u8(raw);
   }
 
   TokenContract _wire2api_token_contract(dynamic raw) {
@@ -124,16 +299,8 @@ class FueletContractsImpl implements FueletContracts {
     );
   }
 
-  TokenInitializeConfigModel _wire2api_token_initialize_config_model(
-      dynamic raw) {
-    final arr = raw as List<dynamic>;
-    if (arr.length != 3)
-      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
-    return TokenInitializeConfigModel(
-      name: _wire2api_String(arr[0]),
-      symbol: _wire2api_String(arr[1]),
-      decimals: _wire2api_u8(arr[2]),
-    );
+  int _wire2api_u64(dynamic raw) {
+    return castInt(raw);
   }
 
   int _wire2api_u8(dynamic raw) {
@@ -200,6 +367,7 @@ class FueletContractsPlatform
 // AUTO GENERATED FILE, DO NOT EDIT.
 //
 // Generated by `package:ffigen`.
+// ignore_for_file: type=lint
 
 /// generated by flutter_rust_bridge
 class FueletContractsWire implements FlutterRustBridgeWireBase {
@@ -308,27 +476,135 @@ class FueletContractsWire implements FlutterRustBridgeWireBase {
       _wire_new__static_method__TokenContractPtr
           .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
-  void wire_config__method__TokenContract(
+  void wire_total_assets__method__TokenContract(
     int port_,
     ffi.Pointer<wire_TokenContract> that,
     ffi.Pointer<wire_uint_8_list> contract_id,
   ) {
-    return _wire_config__method__TokenContract(
+    return _wire_total_assets__method__TokenContract(
       port_,
       that,
       contract_id,
     );
   }
 
-  late final _wire_config__method__TokenContractPtr = _lookup<
+  late final _wire_total_assets__method__TokenContractPtr = _lookup<
           ffi.NativeFunction<
               ffi.Void Function(ffi.Int64, ffi.Pointer<wire_TokenContract>,
                   ffi.Pointer<wire_uint_8_list>)>>(
-      'wire_config__method__TokenContract');
-  late final _wire_config__method__TokenContract =
-      _wire_config__method__TokenContractPtr.asFunction<
+      'wire_total_assets__method__TokenContract');
+  late final _wire_total_assets__method__TokenContract =
+      _wire_total_assets__method__TokenContractPtr.asFunction<
           void Function(int, ffi.Pointer<wire_TokenContract>,
               ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_total_supply__method__TokenContract(
+    int port_,
+    ffi.Pointer<wire_TokenContract> that,
+    ffi.Pointer<wire_uint_8_list> contract_id,
+    ffi.Pointer<wire_uint_8_list> asset_id,
+  ) {
+    return _wire_total_supply__method__TokenContract(
+      port_,
+      that,
+      contract_id,
+      asset_id,
+    );
+  }
+
+  late final _wire_total_supply__method__TokenContractPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_TokenContract>,
+                  ffi.Pointer<wire_uint_8_list>,
+                  ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_total_supply__method__TokenContract');
+  late final _wire_total_supply__method__TokenContract =
+      _wire_total_supply__method__TokenContractPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_TokenContract>,
+              ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_name__method__TokenContract(
+    int port_,
+    ffi.Pointer<wire_TokenContract> that,
+    ffi.Pointer<wire_uint_8_list> contract_id,
+    ffi.Pointer<wire_uint_8_list> asset_id,
+  ) {
+    return _wire_name__method__TokenContract(
+      port_,
+      that,
+      contract_id,
+      asset_id,
+    );
+  }
+
+  late final _wire_name__method__TokenContractPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_TokenContract>,
+                  ffi.Pointer<wire_uint_8_list>,
+                  ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_name__method__TokenContract');
+  late final _wire_name__method__TokenContract =
+      _wire_name__method__TokenContractPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_TokenContract>,
+              ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_symbol__method__TokenContract(
+    int port_,
+    ffi.Pointer<wire_TokenContract> that,
+    ffi.Pointer<wire_uint_8_list> contract_id,
+    ffi.Pointer<wire_uint_8_list> asset_id,
+  ) {
+    return _wire_symbol__method__TokenContract(
+      port_,
+      that,
+      contract_id,
+      asset_id,
+    );
+  }
+
+  late final _wire_symbol__method__TokenContractPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_TokenContract>,
+                  ffi.Pointer<wire_uint_8_list>,
+                  ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_symbol__method__TokenContract');
+  late final _wire_symbol__method__TokenContract =
+      _wire_symbol__method__TokenContractPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_TokenContract>,
+              ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_decimals__method__TokenContract(
+    int port_,
+    ffi.Pointer<wire_TokenContract> that,
+    ffi.Pointer<wire_uint_8_list> contract_id,
+    ffi.Pointer<wire_uint_8_list> asset_id,
+  ) {
+    return _wire_decimals__method__TokenContract(
+      port_,
+      that,
+      contract_id,
+      asset_id,
+    );
+  }
+
+  late final _wire_decimals__method__TokenContractPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Void Function(
+                  ffi.Int64,
+                  ffi.Pointer<wire_TokenContract>,
+                  ffi.Pointer<wire_uint_8_list>,
+                  ffi.Pointer<wire_uint_8_list>)>>(
+      'wire_decimals__method__TokenContract');
+  late final _wire_decimals__method__TokenContract =
+      _wire_decimals__method__TokenContractPtr.asFunction<
+          void Function(int, ffi.Pointer<wire_TokenContract>,
+              ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 
   ffi.Pointer<wire_TokenContract> new_box_autoadd_token_contract_0() {
     return _new_box_autoadd_token_contract_0();
@@ -385,5 +661,6 @@ class wire_TokenContract extends ffi.Struct {
 }
 
 typedef DartPostCObjectFnType = ffi.Pointer<
-    ffi.NativeFunction<ffi.Bool Function(DartPort, ffi.Pointer<ffi.Void>)>>;
+    ffi.NativeFunction<
+        ffi.Bool Function(DartPort port_id, ffi.Pointer<ffi.Void> message)>>;
 typedef DartPort = ffi.Int64;

@@ -11,18 +11,54 @@ final dynLib =
     DynamicLibrary.open('$projectPath/target/debug/libfuelet_contracts.dylib');
 var rustSdk = FueletContractsImpl(dynLib);
 
-const betaApiUrl = 'https://beta-3.fuel.network';
+const betaApiUrl = 'https://beta-4.fuel.network';
 
-String swayTokenAssetId =
-    '0x89eac25d412c5c1b63d212deacc109dcff804eff70101fe0fc72167bc7884aa2';
+String contractId =
+    '0x047bec0207ccc6d7dc192a6e2b7497485c2f89e9dd5b06543f3cb2132ffd7360';
+String assetId =
+    '0x792586f81f2727c479a4c80d3ab6a3953678348f12e74a7f710010db13ef3ddb';
 
 void main() {
-  test('get config from a token contract', () async {
+  test('get total assets from a token contract', () async {
     var tokenContract = await TokenContract.newTokenContract(
         bridge: rustSdk, nodeUrl: betaApiUrl);
-    var response = await tokenContract.config(contractId: swayTokenAssetId);
-    expect(response.name, 'Sway token                      ');
-    expect(response.symbol, 'SWAY    ');
-    expect(response.decimals, 9);
+    var totalAssets = await tokenContract.totalAssets(contractId: contractId);
+    expect(totalAssets, 1);
+  });
+
+  test('get total_supply from a token contract', () async {
+    var tokenContract = await TokenContract.newTokenContract(
+        bridge: rustSdk, nodeUrl: betaApiUrl);
+    var totalSupply = await tokenContract.totalSupply(
+        contractId: contractId, assetId: assetId);
+
+    expect(totalSupply, 1998);
+  });
+
+  test('get asset name from a token contract', () async {
+    var tokenContract = await TokenContract.newTokenContract(
+        bridge: rustSdk, nodeUrl: betaApiUrl);
+    var name =
+        await tokenContract.name(contractId: contractId, assetId: assetId);
+
+    expect(name, 'Fueletoin');
+  });
+
+  test('get symbol from a token contract', () async {
+    var tokenContract = await TokenContract.newTokenContract(
+        bridge: rustSdk, nodeUrl: betaApiUrl);
+    var symbol =
+        await tokenContract.symbol(contractId: contractId, assetId: assetId);
+
+    expect(symbol, 'FLTN');
+  });
+
+  test('get decimals from a token contract', () async {
+    var tokenContract = await TokenContract.newTokenContract(
+        bridge: rustSdk, nodeUrl: betaApiUrl);
+    var decimals =
+        await tokenContract.decimals(contractId: contractId, assetId: assetId);
+
+    expect(decimals, 9);
   });
 }

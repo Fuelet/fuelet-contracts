@@ -1,6 +1,5 @@
 import 'dart:js_util';
 
-import 'package:flutter_fuelet_contracts/token_contract/token_initialize_config.dart';
 import 'package:js/js_util.dart';
 
 import 'base_token_contract.dart';
@@ -11,20 +10,6 @@ class TokenContractImpl extends BaseTokenContract {
 
   TokenContractImpl(String nodeUrl) {
     _nodeUrl = nodeUrl;
-  }
-
-  @override
-  Future<TokenInitializeConfig> config(String contractId) async {
-    final jsConfig = await promiseToFuture(
-        js_token_contract.config(_enrichNetworkUrl(_nodeUrl), contractId));
-    final configMap = _jsObjectToMap(jsConfig);
-    return TokenInitializeConfig(
-        configMap['name'], configMap['symbol'], configMap['decimals']);
-  }
-
-  Map<String, dynamic> _jsObjectToMap(Object o) {
-    final dartObject = dartify(o) as Map;
-    return dartObject.cast<String, dynamic>();
   }
 
   String _enrichNetworkUrl(String url) {
@@ -39,5 +24,35 @@ class TokenContractImpl extends BaseTokenContract {
     }
 
     return networkUrl;
+  }
+
+  @override
+  Future<int> decimals(String contractId, String assetId) async {
+    return await promiseToFuture(js_token_contract.decimals(
+        _enrichNetworkUrl(_nodeUrl), contractId, assetId));
+  }
+
+  @override
+  Future<String> name(String contractId, String assetId) async {
+    return await promiseToFuture(js_token_contract.name(
+        _enrichNetworkUrl(_nodeUrl), contractId, assetId));
+  }
+
+  @override
+  Future<String> symbol(String contractId, String assetId) async {
+    return await promiseToFuture(js_token_contract.symbol(
+        _enrichNetworkUrl(_nodeUrl), contractId, assetId));
+  }
+
+  @override
+  Future<int> totalAssets(String contractId) async {
+    return await promiseToFuture(
+        js_token_contract.totalAssets(_enrichNetworkUrl(_nodeUrl), contractId));
+  }
+
+  @override
+  Future<int> totalSupply(String contractId, String assetId) async {
+    return await promiseToFuture(js_token_contract.totalSupply(
+        _enrichNetworkUrl(_nodeUrl), contractId, assetId));
   }
 }

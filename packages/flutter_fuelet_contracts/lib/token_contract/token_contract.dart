@@ -1,7 +1,6 @@
 import 'platform_impl/stub_token_contract.dart'
     if (dart.library.io) 'platform_impl/mobile_token_contract.dart'
     if (dart.library.html) 'platform_impl/web_token_contract.dart';
-import 'token_initialize_config.dart';
 
 class TokenContract {
   late final TokenContractImpl _tokenContract;
@@ -10,7 +9,23 @@ class TokenContract {
     _tokenContract = TokenContractImpl(nodeUrl);
   }
 
-  Future<TokenInitializeConfig> config(String contractId) {
-    return _tokenContract.config(contractId);
+  Future<int> totalAssets(String contractId) {
+    return _tokenContract.totalAssets(contractId);
+  }
+
+  Future<int> totalSupply(String contractId, String assetId) {
+    return _tokenContract.totalSupply(contractId, assetId);
+  }
+
+  Future<String> name(String contractId, String assetId) {
+    return _tokenContract.name(contractId, assetId);
+  }
+
+  Future<String> symbol(String contractId, String assetId) {
+    return _tokenContract.symbol(contractId, assetId);
+  }
+
+  Future<int> decimals(String contractId, String assetId) {
+    return _tokenContract.decimals(contractId, assetId);
   }
 }

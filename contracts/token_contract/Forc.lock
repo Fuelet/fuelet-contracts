@@ -1,13 +1,21 @@
 [[package]]
-name = 'core'
-source = 'path+from-root-2C66FC65A00ECA96'
+name = "core"
+source = "path+from-root-BD9159206068AEC6"
 
 [[package]]
-name = 'std'
-source = 'git+https://github.com/fuellabs/sway?tag=v0.35.5#49eae2dd93a1957e2a2c2fb3f51b11eb3791fc24'
-dependencies = ['core']
+name = "src_20"
+source = "git+https://github.com/FuelLabs/sway-standards?tag=v0.1.1#5a85090678f3a9deb7040424d4ee502d3d9f5bcf"
+dependencies = ["std"]
 
 [[package]]
-name = 'token_contract'
-source = 'member'
-dependencies = ['std']
+name = "std"
+source = "git+https://github.com/fuellabs/sway?tag=v0.46.1#512a3386f8961185188302f391ccc96553d23a7a"
+dependencies = ["core"]
+
+[[package]]
+name = "token_contract"
+source = "member"
+dependencies = [
+    "src_20",
+    "std",
+]
