@@ -29,10 +29,10 @@ void main() {
   test('get total_supply from a token contract', () async {
     var tokenContract = await TokenContract.newTokenContract(
         bridge: rustSdk, nodeUrl: betaApiUrl);
-    var total_supply = await tokenContract.totalSupply(
+    var totalSupply = await tokenContract.totalSupply(
         contractId: contractId, assetId: assetId);
 
-    expect(total_supply, 1998);
+    expect(totalSupply, 1998);
   });
 
   test('get asset name from a token contract', () async {
