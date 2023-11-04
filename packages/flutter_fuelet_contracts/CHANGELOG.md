@@ -1,3 +1,7 @@
+## 0.0.11
+
+ - **FEAT**: optional return params in the token contract ([#6](https://github.com/Fuelet/fuelet-contracts/issues/6)). ([effa3fff](https://github.com/Fuelet/fuelet-contracts/commit/effa3fffd20e3ba781186232aea3b77539f2abdf))
+
 ## 0.0.10
 
  - **FEAT**: beta4 token contract ([#5](https://github.com/Fuelet/fuelet-contracts/issues/5)). ([aaae3f72](https://github.com/Fuelet/fuelet-contracts/commit/aaae3f7298d50d089fcd7fac2f1c01ba94a826b6))

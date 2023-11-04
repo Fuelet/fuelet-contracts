@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`flutter_fuelet_contracts` - `v0.0.11`](#flutter_fuelet_contracts---v0011)
+
+---
+
+#### `flutter_fuelet_contracts` - `v0.0.11`
+
+ - **FEAT**: optional return params in the token contract ([#6](https://github.com/Fuelet/fuelet-contracts/issues/6)). ([effa3fff](https://github.com/Fuelet/fuelet-contracts/commit/effa3fffd20e3ba781186232aea3b77539f2abdf))
+
+
+## 2023-11-04
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`flutter_fuelet_contracts` - `v0.0.10`](#flutter_fuelet_contracts---v0010)
  - [`fuelet_contracts` - `v1.8.0`](#fuelet_contracts---v180)
 

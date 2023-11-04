@@ -1,6 +1,6 @@
 name: flutter_fuelet_contracts
 description: Flutter Plugin for Fuelet Sway contracts
-version: 0.0.10
+version: 0.0.11
 homepage: https://github.com/Fuelet/fuelet_contracts/tree/main/packages/flutter_fuelet_contracts
 
 environment:
