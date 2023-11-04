@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`flutter_fuelet_contracts` - `v0.0.12`](#flutter_fuelet_contracts---v0012)
+
+---
+
+#### `flutter_fuelet_contracts` - `v0.0.12`
+
+ - **FEAT**: add metadata function. ([bb7c7591](https://github.com/Fuelet/fuelet-contracts/commit/bb7c7591087e07a25578d181515aef4e9061c431))
+
+
+## 2023-11-04
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`flutter_fuelet_contracts` - `v0.0.11`](#flutter_fuelet_contracts---v0011)
 
 ---

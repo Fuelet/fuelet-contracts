@@ -1,3 +1,7 @@
+## 0.0.12
+
+ - **FEAT**: add metadata function. ([bb7c7591](https://github.com/Fuelet/fuelet-contracts/commit/bb7c7591087e07a25578d181515aef4e9061c431))
+
 ## 0.0.11
 
  - **FEAT**: optional return params in the token contract ([#6](https://github.com/Fuelet/fuelet-contracts/issues/6)). ([effa3fff](https://github.com/Fuelet/fuelet-contracts/commit/effa3fffd20e3ba781186232aea3b77539f2abdf))
