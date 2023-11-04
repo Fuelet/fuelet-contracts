@@ -4,17 +4,17 @@ class TokenContractImpl extends BaseTokenContract {
   TokenContractImpl(String nodeUrl);
 
   @override
-  Future<int> decimals(String contractId, String assetId) {
+  Future<int?> decimals(String contractId, String assetId) {
     throw Exception('Stub implementation');
   }
 
   @override
-  Future<String> name(String contractId, String assetId) {
+  Future<String?> name(String contractId, String assetId) {
     throw Exception('Stub implementation');
   }
 
   @override
-  Future<String> symbol(String contractId, String assetId) {
+  Future<String?> symbol(String contractId, String assetId) {
     throw Exception('Stub implementation');
   }
 
@@ -24,7 +24,7 @@ class TokenContractImpl extends BaseTokenContract {
   }
 
   @override
-  Future<int> totalSupply(String contractId, String assetId) {
+  Future<int?> totalSupply(String contractId, String assetId) {
     throw Exception('Stub implementation');
   }
 }

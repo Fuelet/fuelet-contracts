@@ -27,19 +27,19 @@ class TokenContractImpl extends BaseTokenContract {
   }
 
   @override
-  Future<int> decimals(String contractId, String assetId) async {
+  Future<int?> decimals(String contractId, String assetId) async {
     return await promiseToFuture(js_token_contract.decimals(
         _enrichNetworkUrl(_nodeUrl), contractId, assetId));
   }
 
   @override
-  Future<String> name(String contractId, String assetId) async {
+  Future<String?> name(String contractId, String assetId) async {
     return await promiseToFuture(js_token_contract.name(
         _enrichNetworkUrl(_nodeUrl), contractId, assetId));
   }
 
   @override
-  Future<String> symbol(String contractId, String assetId) async {
+  Future<String?> symbol(String contractId, String assetId) async {
     return await promiseToFuture(js_token_contract.symbol(
         _enrichNetworkUrl(_nodeUrl), contractId, assetId));
   }
@@ -51,7 +51,7 @@ class TokenContractImpl extends BaseTokenContract {
   }
 
   @override
-  Future<int> totalSupply(String contractId, String assetId) async {
+  Future<int?> totalSupply(String contractId, String assetId) async {
     return await promiseToFuture(js_token_contract.totalSupply(
         _enrichNetworkUrl(_nodeUrl), contractId, assetId));
   }
