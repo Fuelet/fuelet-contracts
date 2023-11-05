@@ -58,6 +58,17 @@ pub extern "C" fn wire_decimals__method__TokenContract(
     wire_decimals__method__TokenContract_impl(port_, that, contract_id, asset_id)
 }
 
+#[no_mangle]
+pub extern "C" fn wire_metadata__method__TokenContract(
+    port_: i64,
+    that: *mut wire_TokenContract,
+    contract_id: *mut wire_uint_8_list,
+    asset_id: *mut wire_uint_8_list,
+    key: *mut wire_uint_8_list,
+) {
+    wire_metadata__method__TokenContract_impl(port_, that, contract_id, asset_id, key)
+}
+
 // Section: allocate functions
 
 #[no_mangle]

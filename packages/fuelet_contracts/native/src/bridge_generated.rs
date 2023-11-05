@@ -19,6 +19,8 @@ use std::sync::Arc;
 
 // Section: imports
 
+use crate::model::metadata::Metadata;
+
 // Section: wire functions
 
 fn wire_new__static_method__TokenContract_impl(
@@ -159,6 +161,35 @@ fn wire_decimals__method__TokenContract_impl(
         },
     )
 }
+fn wire_metadata__method__TokenContract_impl(
+    port_: MessagePort,
+    that: impl Wire2Api<TokenContract> + UnwindSafe,
+    contract_id: impl Wire2Api<String> + UnwindSafe,
+    asset_id: impl Wire2Api<String> + UnwindSafe,
+    key: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "metadata__method__TokenContract",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.wire2api();
+            let api_contract_id = contract_id.wire2api();
+            let api_asset_id = asset_id.wire2api();
+            let api_key = key.wire2api();
+            move |task_callback| {
+                Ok(TokenContract::metadata(
+                    &api_that,
+                    api_contract_id,
+                    api_asset_id,
+                    api_key,
+                ))
+            }
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks
@@ -189,6 +220,17 @@ impl Wire2Api<u8> for u8 {
 }
 
 // Section: impl IntoDart
+
+impl support::IntoDart for Metadata {
+    fn into_dart(self) -> support::DartAbi {
+        match self {
+            Self::Int(field0) => vec![0.into_dart(), field0.into_dart()],
+            Self::String(field0) => vec![1.into_dart(), field0.into_dart()],
+        }
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for Metadata {}
 
 impl support::IntoDart for TokenContract {
     fn into_dart(self) -> support::DartAbi {

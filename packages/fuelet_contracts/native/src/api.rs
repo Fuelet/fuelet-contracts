@@ -8,6 +8,9 @@ use fuels::programs::contract::ContractCallHandler;
 use fuels::types::AssetId;
 
 pub use crate::bindings::token_contract_binding;
+pub use crate::model::metadata;
+
+use self::metadata::Metadata;
 
 // DO NOT USE THIS PRIVATE KEY
 // It's present here only for the purpose of reading data from blockchain, cause currently you
@@ -71,6 +74,23 @@ impl TokenContract {
         self.call_contract(contract_id, |m| m.decimals(convert_asset_id(&asset_id))).await
     }
 
+    #[tokio::main]
+    pub async fn metadata(
+        &self,
+        contract_id: String,
+        asset_id: String,
+        key: String
+    ) -> Option<Metadata> {
+        let sway_meta: Option<token_contract_binding::Metadata> = self.call_contract(contract_id, |m| m.metadata(convert_asset_id(&asset_id), key.clone())).await;
+        match sway_meta {
+            Some(token_contract_binding::Metadata::B256(value)) => None, // TODO: implement proper conversion
+            Some(token_contract_binding::Metadata::Bytes(value)) => None, // TODO: implement proper conversion
+            Some(token_contract_binding::Metadata::Int(value)) => Some(Metadata::Int(value)),
+            Some(token_contract_binding::Metadata::String(value)) => Some(Metadata::String(value)),
+            _ => None
+        }
+    }
+
     async fn call_contract<F, D>(&self, contract_id_str: String, method: F) -> D where
         D: Tokenizable + Parameterize + Debug,
         F: Fn(token_contract_binding::TokenContractAbiMethods<WalletUnlocked>) -> ContractCallHandler<WalletUnlocked, D> {
@@ -82,7 +102,7 @@ impl TokenContract {
         let methods = contract_instance.methods();
         let response = method(methods)
             .tx_params(tx_params)
-            .call()
+            .simulate()
             .await
             .unwrap();
         response.value
