@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-11-05
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`flutter_fuelet_contracts` - `v0.0.13`](#flutter_fuelet_contracts---v0013)
+ - [`fuelet_contracts` - `v1.9.0`](#fuelet_contracts---v190)
+
+---
+
+#### `flutter_fuelet_contracts` - `v0.0.13`
+
+ - **FEAT**: support src7 ([#7](https://github.com/Fuelet/fuelet-contracts/issues/7)). ([89b8183f](https://github.com/Fuelet/fuelet-contracts/commit/89b8183f244c9651562bb3673491c4b506165201))
+
+#### `fuelet_contracts` - `v1.9.0`
+
+ - **FEAT**: support src7 ([#7](https://github.com/Fuelet/fuelet-contracts/issues/7)). ([89b8183f](https://github.com/Fuelet/fuelet-contracts/commit/89b8183f244c9651562bb3673491c4b506165201))
+
+
 ## 2023-11-04
 
 ### Changes

@@ -1,3 +1,7 @@
+## 1.9.0
+
+ - **FEAT**: support src7 ([#7](https://github.com/Fuelet/fuelet-contracts/issues/7)). ([89b8183f](https://github.com/Fuelet/fuelet-contracts/commit/89b8183f244c9651562bb3673491c4b506165201))
+
 ## 1.8.0
 
  - **FEAT**: beta4 token contract ([#5](https://github.com/Fuelet/fuelet-contracts/issues/5)). ([aaae3f72](https://github.com/Fuelet/fuelet-contracts/commit/aaae3f7298d50d089fcd7fac2f1c01ba94a826b6))

@@ -1,3 +1,7 @@
+## 0.0.13
+
+ - **FEAT**: support src7 ([#7](https://github.com/Fuelet/fuelet-contracts/issues/7)). ([89b8183f](https://github.com/Fuelet/fuelet-contracts/commit/89b8183f244c9651562bb3673491c4b506165201))
+
 ## 0.0.12
 
  - **FEAT**: add metadata function. ([bb7c7591](https://github.com/Fuelet/fuelet-contracts/commit/bb7c7591087e07a25578d181515aef4e9061c431))
