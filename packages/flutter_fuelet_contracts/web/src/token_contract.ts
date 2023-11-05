@@ -67,6 +67,19 @@ class TokenContract {
     const {value} = await contract.functions.decimals({value: assetId}).simulate();
     return value;
   }
+
+  // TODO: implement once it's known how to construct StringInput from string
+  // async metadata(
+  //   nodeUrl: string,
+  //   contractId: string,
+  //   assetId: string,
+  //   key: string
+  // ): Promise<number | undefined> {
+  //   const a: StringInput
+  //   const contract = await this.create_contract(nodeUrl, contractId);
+  //   const {value} = await contract.functions.metadata({value: assetId}, key).simulate();
+  //   return value;
+  // }
 }
 
 function injectObject(target: object, obj: object, name: PropertyKey) {
