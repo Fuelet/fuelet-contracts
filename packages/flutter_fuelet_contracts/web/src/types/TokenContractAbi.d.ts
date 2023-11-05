@@ -20,7 +20,10 @@ import type {
   InvokeFunction,
 } from 'fuels';
 
-import type { Option } from "./common";
+import type { Option, Enum } from "./common";
+
+export type MetadataInput = Enum<{ B256: string, Bytes: BytesInput, Int: BigNumberish, String: StringInput }>;
+export type MetadataOutput = Enum<{ B256: string, Bytes: BytesOutput, Int: BN, String: StringOutput }>;
 
 export type AssetIdInput = { value: string };
 export type AssetIdOutput = AssetIdInput;
@@ -43,6 +46,7 @@ interface TokenContractAbiInterface extends Interface {
     symbol: FunctionFragment;
     total_assets: FunctionFragment;
     total_supply: FunctionFragment;
+    metadata: FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'decimals', values: [AssetIdInput]): Uint8Array;
@@ -50,12 +54,14 @@ interface TokenContractAbiInterface extends Interface {
   encodeFunctionData(functionFragment: 'symbol', values: [AssetIdInput]): Uint8Array;
   encodeFunctionData(functionFragment: 'total_assets', values: []): Uint8Array;
   encodeFunctionData(functionFragment: 'total_supply', values: [AssetIdInput]): Uint8Array;
+  encodeFunctionData(functionFragment: 'metadata', values: [AssetIdInput, StringInput]): Uint8Array;
 
   decodeFunctionData(functionFragment: 'decimals', data: BytesLike): DecodedValue;
   decodeFunctionData(functionFragment: 'name', data: BytesLike): DecodedValue;
   decodeFunctionData(functionFragment: 'symbol', data: BytesLike): DecodedValue;
   decodeFunctionData(functionFragment: 'total_assets', data: BytesLike): DecodedValue;
   decodeFunctionData(functionFragment: 'total_supply', data: BytesLike): DecodedValue;
+  decodeFunctionData(functionFragment: 'metadata', data: BytesLike): DecodedValue;
 }
 
 export class TokenContractAbi extends Contract {
@@ -66,5 +72,6 @@ export class TokenContractAbi extends Contract {
     symbol: InvokeFunction<[asset: AssetIdInput], Option<StringOutput>>;
     total_assets: InvokeFunction<[], BN>;
     total_supply: InvokeFunction<[asset: AssetIdInput], Option<BN>>;
+    metadata: InvokeFunction<[asset: AssetIdInput, key: StringInput], Option<MetadataOutput>>;
   };
 }

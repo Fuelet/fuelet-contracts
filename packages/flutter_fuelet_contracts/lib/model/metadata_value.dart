@@ -11,11 +11,3 @@ class IntMetadataValue extends MetadataValue {
 
   IntMetadataValue(this.value);
 }
-
-class BytesMetadataValue extends MetadataValue {
-  // TODO: add value
-}
-
-class B256MetadataValue extends MetadataValue {
-  // TODO: add value
-}

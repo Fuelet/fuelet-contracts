@@ -29,6 +29,33 @@ const _abi = {
     },
     {
       "typeId": 2,
+      "type": "enum Metadata",
+      "components": [
+        {
+          "name": "B256",
+          "type": 1,
+          "typeArguments": null
+        },
+        {
+          "name": "Bytes",
+          "type": 7,
+          "typeArguments": null
+        },
+        {
+          "name": "Int",
+          "type": 10,
+          "typeArguments": null
+        },
+        {
+          "name": "String",
+          "type": 9,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 3,
       "type": "enum Option",
       "components": [
         {
@@ -38,28 +65,28 @@ const _abi = {
         },
         {
           "name": "Some",
-          "type": 3,
+          "type": 4,
           "typeArguments": null
         }
       ],
       "typeParameters": [
-        3
+        4
       ]
     },
     {
-      "typeId": 3,
+      "typeId": 4,
       "type": "generic T",
       "components": null,
       "typeParameters": null
     },
     {
-      "typeId": 4,
+      "typeId": 5,
       "type": "raw untyped ptr",
       "components": null,
       "typeParameters": null
     },
     {
-      "typeId": 5,
+      "typeId": 6,
       "type": "struct AssetId",
       "components": [
         {
@@ -71,34 +98,17 @@ const _abi = {
       "typeParameters": null
     },
     {
-      "typeId": 6,
+      "typeId": 7,
       "type": "struct Bytes",
       "components": [
         {
           "name": "buf",
-          "type": 7,
+          "type": 8,
           "typeArguments": null
         },
         {
           "name": "len",
-          "type": 9,
-          "typeArguments": null
-        }
-      ],
-      "typeParameters": null
-    },
-    {
-      "typeId": 7,
-      "type": "struct RawBytes",
-      "components": [
-        {
-          "name": "ptr",
-          "type": 4,
-          "typeArguments": null
-        },
-        {
-          "name": "cap",
-          "type": 9,
+          "type": 10,
           "typeArguments": null
         }
       ],
@@ -106,11 +116,16 @@ const _abi = {
     },
     {
       "typeId": 8,
-      "type": "struct String",
+      "type": "struct RawBytes",
       "components": [
         {
-          "name": "bytes",
-          "type": 6,
+          "name": "ptr",
+          "type": 5,
+          "typeArguments": null
+        },
+        {
+          "name": "cap",
+          "type": 10,
           "typeArguments": null
         }
       ],
@@ -118,12 +133,24 @@ const _abi = {
     },
     {
       "typeId": 9,
+      "type": "struct String",
+      "components": [
+        {
+          "name": "bytes",
+          "type": 7,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 10,
       "type": "u64",
       "components": null,
       "typeParameters": null
     },
     {
-      "typeId": 10,
+      "typeId": 11,
       "type": "u8",
       "components": null,
       "typeParameters": null
@@ -134,14 +161,118 @@ const _abi = {
       "inputs": [
         {
           "name": "asset",
-          "type": 5,
+          "type": 6,
           "typeArguments": null
         }
       ],
       "name": "decimals",
       "output": {
         "name": "",
-        "type": 2,
+        "type": 3,
+        "typeArguments": [
+          {
+            "name": "",
+            "type": 11,
+            "typeArguments": null
+          }
+        ]
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "asset",
+          "type": 6,
+          "typeArguments": null
+        }
+      ],
+      "name": "name",
+      "output": {
+        "name": "",
+        "type": 3,
+        "typeArguments": [
+          {
+            "name": "",
+            "type": 9,
+            "typeArguments": null
+          }
+        ]
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "asset",
+          "type": 6,
+          "typeArguments": null
+        }
+      ],
+      "name": "symbol",
+      "output": {
+        "name": "",
+        "type": 3,
+        "typeArguments": [
+          {
+            "name": "",
+            "type": 9,
+            "typeArguments": null
+          }
+        ]
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [],
+      "name": "total_assets",
+      "output": {
+        "name": "",
+        "type": 10,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "asset",
+          "type": 6,
+          "typeArguments": null
+        }
+      ],
+      "name": "total_supply",
+      "output": {
+        "name": "",
+        "type": 3,
         "typeArguments": [
           {
             "name": "",
@@ -163,93 +294,23 @@ const _abi = {
       "inputs": [
         {
           "name": "asset",
-          "type": 5,
+          "type": 6,
+          "typeArguments": null
+        },
+        {
+          "name": "key",
+          "type": 9,
           "typeArguments": null
         }
       ],
-      "name": "name",
+      "name": "metadata",
       "output": {
         "name": "",
-        "type": 2,
+        "type": 3,
         "typeArguments": [
           {
             "name": "",
-            "type": 8,
-            "typeArguments": null
-          }
-        ]
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [
-        {
-          "name": "asset",
-          "type": 5,
-          "typeArguments": null
-        }
-      ],
-      "name": "symbol",
-      "output": {
-        "name": "",
-        "type": 2,
-        "typeArguments": [
-          {
-            "name": "",
-            "type": 8,
-            "typeArguments": null
-          }
-        ]
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [],
-      "name": "total_assets",
-      "output": {
-        "name": "",
-        "type": 9,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [
-        {
-          "name": "asset",
-          "type": 5,
-          "typeArguments": null
-        }
-      ],
-      "name": "total_supply",
-      "output": {
-        "name": "",
-        "type": 2,
-        "typeArguments": [
-          {
-            "name": "",
-            "type": 9,
+            "type": 2,
             "typeArguments": null
           }
         ]
@@ -271,19 +332,19 @@ const _abi = {
       "name": "TOTAL_SUPPLY",
       "configurableType": {
         "name": "",
-        "type": 9,
+        "type": 10,
         "typeArguments": null
       },
-      "offset": 5012
+      "offset": 6452
     },
     {
       "name": "DECIMALS",
       "configurableType": {
         "name": "",
-        "type": 10,
+        "type": 11,
         "typeArguments": null
       },
-      "offset": 4964
+      "offset": 6404
     }
   ]
 }

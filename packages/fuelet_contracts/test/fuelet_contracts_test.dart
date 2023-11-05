@@ -18,6 +18,11 @@ String contractId =
 String assetId =
     '0x792586f81f2727c479a4c80d3ab6a3953678348f12e74a7f710010db13ef3ddb';
 
+String nftContractId =
+    '0x75515a0c909c692b7373f8d9a277366c43a5c97bad4dd8b482cac04144533bd8';
+String nftAssetId =
+    '0x3fd180f2ae2d0d32b110dae5a76b606430b9f934ba7510d4b33188fc8cd9f73e';
+
 void main() {
   test('get total assets from a token contract', () async {
     var tokenContract = await TokenContract.newTokenContract(
@@ -61,4 +66,14 @@ void main() {
 
     expect(decimals, 9);
   });
+
+  // TODO: doesn't work because of the SWAY restrictions: Enums currently support only one level deep heap types
+  // test('get metadata from an NFT contract', () async {
+  //   var tokenContract = await TokenContract.newTokenContract(
+  //       bridge: rustSdk, nodeUrl: betaApiUrl);
+  //   var nftTokenURI = await tokenContract.metadata(
+  //       contractId: nftContractId, assetId: nftAssetId, key: 'tokenURI');
+  //
+  //   expect(nftTokenURI, "");
+  // });
 }

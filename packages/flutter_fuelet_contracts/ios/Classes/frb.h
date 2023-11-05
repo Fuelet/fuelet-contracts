@@ -56,6 +56,12 @@ void wire_decimals__method__TokenContract(int64_t port_,
                                           struct wire_uint_8_list *contract_id,
                                           struct wire_uint_8_list *asset_id);
 
+void wire_metadata__method__TokenContract(int64_t port_,
+                                          struct wire_TokenContract *that,
+                                          struct wire_uint_8_list *contract_id,
+                                          struct wire_uint_8_list *asset_id,
+                                          struct wire_uint_8_list *key);
+
 struct wire_TokenContract *new_box_autoadd_token_contract_0(void);
 
 struct wire_uint_8_list *new_uint_8_list_0(int32_t len);
@@ -70,6 +76,7 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_name__method__TokenContract);
     dummy_var ^= ((int64_t) (void*) wire_symbol__method__TokenContract);
     dummy_var ^= ((int64_t) (void*) wire_decimals__method__TokenContract);
+    dummy_var ^= ((int64_t) (void*) wire_metadata__method__TokenContract);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_token_contract_0);
     dummy_var ^= ((int64_t) (void*) new_uint_8_list_0);
     dummy_var ^= ((int64_t) (void*) free_WireSyncReturn);

@@ -1,5 +1,6 @@
 import 'dart:js_util';
 
+import 'package:flutter_fuelet_contracts/model/metadata_value.dart';
 import 'package:js/js_util.dart';
 
 import 'base_token_contract.dart';
@@ -54,5 +55,12 @@ class TokenContractImpl extends BaseTokenContract {
   Future<int?> totalSupply(String contractId, String assetId) async {
     return await promiseToFuture(js_token_contract.totalSupply(
         _enrichNetworkUrl(_nodeUrl), contractId, assetId));
+  }
+
+  @override
+  Future<MetadataValue?> metadata(
+      String contractId, String assetId, String key) async {
+    // TODO: implement metadata
+    throw UnimplementedError();
   }
 }
