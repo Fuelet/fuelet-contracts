@@ -1,3 +1,5 @@
+import 'package:flutter_fuelet_contracts/model/metadata_value.dart';
+
 import 'base_token_contract.dart';
 
 class TokenContractImpl extends BaseTokenContract {
@@ -25,6 +27,12 @@ class TokenContractImpl extends BaseTokenContract {
 
   @override
   Future<int?> totalSupply(String contractId, String assetId) {
+    throw Exception('Stub implementation');
+  }
+
+  @override
+  Future<MetadataValue?> metadata(
+      String contractId, String assetId, String key) {
     throw Exception('Stub implementation');
   }
 }

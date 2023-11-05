@@ -1,3 +1,4 @@
+import 'package:flutter_fuelet_contracts/model/metadata_value.dart';
 import 'package:fuelet_contracts/fuelet_contracts.dart';
 
 import '../../ffi/mobile_wrapper.dart';
@@ -37,5 +38,14 @@ class TokenContractImpl extends BaseTokenContract {
   Future<int?> totalSupply(String contractId, String assetId) async {
     return await _tokenContract.totalSupply(
         contractId: contractId, assetId: assetId);
+  }
+
+  @override
+  Future<MetadataValue?> metadata(
+      String contractId, String assetId, String key) async {
+    const bridgeMeta = await _tokenContract.metadata(
+        contractId: contractId, assetId: assetId, key: key);
+    // TODO: convert metadata to the SDK model
+    return null;
   }
 }

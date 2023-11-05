@@ -1,3 +1,5 @@
+import 'package:flutter_fuelet_contracts/model/metadata_value.dart';
+
 abstract class BaseTokenContract {
   const BaseTokenContract();
 
@@ -10,4 +12,6 @@ abstract class BaseTokenContract {
   Future<String?> symbol(String contractId, String assetId);
 
   Future<int?> decimals(String contractId, String assetId);
+
+  Future<MetadataValue?> metadata(String contractId, String assetId, String key);
 }
