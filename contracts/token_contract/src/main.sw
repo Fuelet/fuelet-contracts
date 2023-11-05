@@ -2,6 +2,7 @@ contract;
 
 use src_20::SRC20;
 use std::{call_frames::contract_id, string::String};
+use src_7::{Metadata, SRC7};
 
 configurable {
     TOTAL_SUPPLY: u64 = 100_000_000,
@@ -45,6 +46,17 @@ impl SRC20 for Contract {
     fn decimals(asset: AssetId) -> Option<u8> {
         if asset == AssetId::default(contract_id()) {
             Some(DECIMALS)
+        } else {
+            None
+        }
+    }
+}
+
+impl SRC7 for Contract {
+    #[storage(read)]
+    fn metadata(asset: AssetId, key: String) -> Option<Metadata> {
+        if asset == AssetId::default(contract_id()) && key == String::from_ascii_str("tokenURI") {
+            Some(Metadata::String(String::from_ascii_str("https://boredapeyachtclub.com/api/mutants/1")))
         } else {
             None
         }

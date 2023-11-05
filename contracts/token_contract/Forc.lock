@@ -4,7 +4,12 @@ source = "path+from-root-BD9159206068AEC6"
 
 [[package]]
 name = "src_20"
-source = "git+https://github.com/FuelLabs/sway-standards?tag=v0.1.1#5a85090678f3a9deb7040424d4ee502d3d9f5bcf"
+source = "git+https://github.com/FuelLabs/sway-standards?tag=v0.1.2#a3744aa3dcb8c950a433d1fc16645ef9a83dc583"
+dependencies = ["std"]
+
+[[package]]
+name = "src_7"
+source = "git+https://github.com/FuelLabs/sway-standards?tag=v0.1.2#a3744aa3dcb8c950a433d1fc16645ef9a83dc583"
 dependencies = ["std"]
 
 [[package]]
@@ -17,5 +22,6 @@ name = "token_contract"
 source = "member"
 dependencies = [
     "src_20",
+    "src_7",
     "std",
 ]
